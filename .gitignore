@@ -1,0 +1,6 @@
+release/*
+include/SDL2/*
+*.o
+*.dll
+src/Makefile
+.vscode
