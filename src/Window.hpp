@@ -5,9 +5,18 @@
 class Window{
     
     private:
-        SDL_Window* window;
         SDL_Renderer* renderer;
+        SDL_Window* window;
         
     public:
+        bool isOpen;
+
         Window(const char* title, int width, int height);
+        void pollEvents(SDL_Event &event);
+        void destroy();
+        SDL_Window* getWindow();
+        SDL_Renderer* getRenderer();
+
+
+
 };

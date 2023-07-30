@@ -1,2 +1,2 @@
-My First SDL Project
+Making Pong in SDL2
 
