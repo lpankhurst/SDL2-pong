@@ -1,6 +1,4 @@
-release/*
-include/SDL2/*
 *.o
-*.dll
-src/Makefile
+Makefile
 .vscode
+main
