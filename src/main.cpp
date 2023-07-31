@@ -48,7 +48,7 @@ int main( int argc, char* argv[] )
 		// Draw to and present the new renderer
 		player1_paddle.draw(window.getRenderer());
 		player2_paddle.draw(window.getRenderer());
-    	ball.checkCollision();
+    	ball.checkCollision(player1_paddle.getPos(), player2_paddle.getPos());
 		ball.draw(window.getRenderer());
 		window.draw();
 		window.presentRenderer();

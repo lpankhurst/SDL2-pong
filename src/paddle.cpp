@@ -45,5 +45,9 @@ void Paddle::draw(SDL_Renderer* renderer)
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     SDL_RenderFillRect(renderer, &paddle);
 
+}
 
+int Paddle::getPos()
+{
+    return y_pos;
 }

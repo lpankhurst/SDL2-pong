@@ -16,5 +16,6 @@ class Paddle{
         Paddle(int x_pos, int y_pos, SDL_KeyCode up_key, SDL_KeyCode down_key);
         void pollEvents(SDL_Event &event);
         void draw(SDL_Renderer* renderer);
+        int getPos();
 
 };

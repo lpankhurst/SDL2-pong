@@ -25,7 +25,7 @@ void Ball::draw(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer, &ball);
 }
 
-void Ball::checkCollision()
+void Ball::checkCollision(int paddle1_y, int paddle2_y)
 {
     if ( ball.x > 600 || ball.x < 0 )
         x_velocity *= -1;
