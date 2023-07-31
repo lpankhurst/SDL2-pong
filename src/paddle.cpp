@@ -4,32 +4,33 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 
-Paddle::Paddle(int x, int y)
+Paddle::Paddle(int x, int y, SDL_KeyCode up, SDL_KeyCode down)
 {
     // Paddle's dimensions
     paddle.w = 20;
     paddle.h = 100;
-
     // Paddles position
-    paddle.x = x;
-    paddle.y = y;
+    paddle.x = x_pos = x;
+    paddle.y = y_pos = y;
+    // Setting the Up and Down key-bindings
+    up_key = up;
+    down_key = down;
+
 }
 
 void Paddle::pollEvents(SDL_Event &event)
 {
     if ( event.type == SDL_KEYDOWN )
     {
-        switch ( event.key.keysym.sym )
-        {
-            case SDLK_UP: 
+        if ( event.key.keysym.sym == up_key)
+        { 
                 // Decrease y_pos to move up
                 y_pos -= 10;
-                break;
-            case SDLK_DOWN:
+        }
+        else if (event.key.keysym.sym == down_key)
+        {
                 // Increase y_pos to move down
                 y_pos += 10;
-                break;
-
         }
     }
 }
