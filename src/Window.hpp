@@ -14,6 +14,7 @@ class Window{
         Window(const char* title, int width, int height);
         void pollEvents(SDL_Event &event);
         void destroy();
+        void draw();
         SDL_Window* getWindow();
         SDL_Renderer* getRenderer();
 

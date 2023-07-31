@@ -38,6 +38,8 @@ int main( int argc, char* argv[] )
 	{
 		pollEvents(window, paddle);
 		paddle.draw(window.getRenderer());
+		window.draw();
+
 	}
 
 	// Destroy the window after closing 

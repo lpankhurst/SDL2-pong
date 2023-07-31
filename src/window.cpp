@@ -37,9 +37,11 @@ void Window::destroy()
     SDL_DestroyWindow(window);
 }
 
-SDL_Window* Window::getWindow()
+void Window::draw()
 {
-    return window;
+    SDL_SetRenderDrawColor(renderer, 100, 100, 150, 255);
+    SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
 }
 
 
