@@ -4,6 +4,7 @@
 
 #include "Window.hpp"
 #include "Paddle.hpp"
+#include "Ball.hpp"
 
 
 int WIN_WIDTH = 600;
@@ -35,6 +36,7 @@ int main( int argc, char* argv[] )
 	// Instantiating the paddles
 	Paddle player1_paddle(0, 0, SDLK_UP, SDLK_DOWN);
 	Paddle player2_paddle(WIN_WIDTH - 20, 0, SDLK_w, SDLK_s);
+	Ball ball( (WIN_WIDTH/2) - 10 , (WIN_HEIGHT/2) + 10 );
 
 
 	while ( window.isOpen )
@@ -46,6 +48,8 @@ int main( int argc, char* argv[] )
 		// Draw to and present the new renderer
 		player1_paddle.draw(window.getRenderer());
 		player2_paddle.draw(window.getRenderer());
+    	ball.checkCollision();
+		ball.draw(window.getRenderer());
 		window.draw();
 		window.presentRenderer();
 
