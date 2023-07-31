@@ -39,15 +39,10 @@ void Paddle::draw(SDL_Renderer* renderer)
 {
     // Update the position of the paddle
     paddle.y = y_pos;
-
-    // TODO - Put this somewhere appropriate to fix glitchy rendering 
-    SDL_RenderClear(renderer);
     
     // Set the color of the paddle
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     SDL_RenderFillRect(renderer, &paddle);
 
-    // Render to the renderer
-    SDL_RenderPresent(renderer);
 
 }

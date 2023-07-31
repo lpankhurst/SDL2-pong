@@ -15,6 +15,8 @@ class Window{
         void pollEvents(SDL_Event &event);
         void destroy();
         void draw();
+        void clearRenderer();
+        void presentRenderer();
         SDL_Window* getWindow();
         SDL_Renderer* getRenderer();
 

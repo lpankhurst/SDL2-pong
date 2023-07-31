@@ -36,9 +36,14 @@ int main( int argc, char* argv[] )
 
 	while ( window.isOpen )
 	{
+		// Clear the last Render
+		window.clearRenderer();
+		// Check user input(s)
 		pollEvents(window, paddle);
+		// Draw to and present the new renderer
 		paddle.draw(window.getRenderer());
 		window.draw();
+		window.presentRenderer();
 
 	}
 

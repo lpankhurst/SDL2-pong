@@ -40,12 +40,20 @@ void Window::destroy()
 void Window::draw()
 {
     SDL_SetRenderDrawColor(renderer, 100, 100, 150, 255);
-    SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
 }
 
+void Window::clearRenderer()
+{
+    SDL_RenderClear(renderer);
+}
+
+void Window::presentRenderer()
+{
+    SDL_RenderPresent(renderer);
+}
 
 SDL_Renderer* Window::getRenderer()
 {
     return renderer;
 }
+
