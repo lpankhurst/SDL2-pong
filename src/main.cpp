@@ -15,9 +15,13 @@ void pollEvents(Window &window, Paddle &paddle1, Paddle &paddle2)
 	SDL_Event event;
 
 	if ( SDL_PollEvent(&event) )
-	{
-		paddle1.pollEvents();
-		paddle2.pollEvents();
+	{	
+		// Prevent double pressing bugginess
+		if (event.type == SDL_KEYDOWN )
+		{
+			paddle1.pollEvents();
+			paddle2.pollEvents();
+		}
 		window.pollEvents(event);
 	}
 }

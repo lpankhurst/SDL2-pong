@@ -20,11 +20,13 @@ Paddle::Paddle(int x, int y, SDL_Scancode up, SDL_Scancode down)
 
 void Paddle::pollEvents()
 {
-    // TODO: Not yet fine-tuned, sometimes moves too fast, stutter when other player presses key
+    // TODO: Not yet fine-tuned, stutter when other player presses key
     const Uint8 *state = SDL_GetKeyboardState(NULL);
     // If the correct key is pressed and not trying to move outside the screen
     if ( state[up_key] && !(paddle.y == 0) )
+    {
         y_pos -= 10;
+    }
     else if ( state[down_key] && !(paddle.y == 400 - paddle.h) )
         y_pos += 10;
 
