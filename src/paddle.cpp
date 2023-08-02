@@ -4,7 +4,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 
-Paddle::Paddle(int x, int y, SDL_KeyCode up, SDL_KeyCode down)
+Paddle::Paddle(int x, int y, SDL_Scancode up, SDL_Scancode down)
 {
     // Paddle's dimensions
     paddle.w = 20;
@@ -18,21 +18,15 @@ Paddle::Paddle(int x, int y, SDL_KeyCode up, SDL_KeyCode down)
 
 }
 
-void Paddle::pollEvents(SDL_Event &event)
+void Paddle::pollEvents()
 {
-    if ( event.type == SDL_KEYDOWN )
-    {
-        if ( event.key.keysym.sym == up_key)
-        { 
-                // Decrease y_pos to move up
-                y_pos -= 10;
-        }
-        else if (event.key.keysym.sym == down_key)
-        {
-                // Increase y_pos to move down
-                y_pos += 10;
-        }
-    }
+    // 
+    const Uint8 *state = SDL_GetKeyboardState(NULL);
+    if ( state[up_key] )
+        y_pos -= 10;
+    else if ( state[down_key] )
+        y_pos += 10;
+
 }
 
     

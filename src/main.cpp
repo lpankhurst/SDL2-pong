@@ -16,8 +16,8 @@ void pollEvents(Window &window, Paddle &paddle1, Paddle &paddle2)
 
 	if ( SDL_PollEvent(&event) )
 	{
-		paddle1.pollEvents(event);
-		paddle2.pollEvents(event);
+		paddle1.pollEvents();
+		paddle2.pollEvents();
 		window.pollEvents(event);
 	}
 }
@@ -34,8 +34,8 @@ int main( int argc, char* argv[] )
 	Window window("Pong", WIN_WIDTH, WIN_HEIGHT);
 
 	// Instantiating the paddles
-	Paddle player1_paddle(0, 0, SDLK_UP, SDLK_DOWN);
-	Paddle player2_paddle(WIN_WIDTH - 20, 0, SDLK_w, SDLK_s);
+	Paddle player1_paddle(0, 0, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
+	Paddle player2_paddle(WIN_WIDTH - 20, 0, SDL_SCANCODE_W, SDL_SCANCODE_S);
 	Ball ball( (WIN_WIDTH/2) - 10 , (WIN_HEIGHT/2) + 10 );
 
 
@@ -43,6 +43,8 @@ int main( int argc, char* argv[] )
 	{
 		// Clear the last Render
 		window.clearRenderer();
+		// Increase the time between frames 
+		SDL_Delay(10);
 		// Check user input(s)
 		pollEvents(window, player1_paddle, player2_paddle);
 		// Draw to and present the new renderer
