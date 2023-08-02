@@ -12,7 +12,8 @@ class Ball{
     public:
         Ball(int start_x, int start_y);
         void draw(SDL_Renderer* renderer);
-        void checkCollision(int paddle1_y, int paddle2_y);
+        void checkCollision();
+        void checkPaddleCollision(int paddle1_y, int paddle2_y);
 
 
 };

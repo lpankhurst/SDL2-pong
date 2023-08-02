@@ -7,7 +7,7 @@
 Paddle::Paddle(int x, int y, SDL_Scancode up, SDL_Scancode down)
 {
     // Paddle's dimensions
-    paddle.w = 20;
+    paddle.w = 10;
     paddle.h = 100;
     // Paddles position
     paddle.x = x_pos = x;
@@ -20,7 +20,7 @@ Paddle::Paddle(int x, int y, SDL_Scancode up, SDL_Scancode down)
 
 void Paddle::pollEvents()
 {
-    // 
+    // TODO: Not yet fine-tuned, sometimes moves too fast, stutter when other player presses key
     const Uint8 *state = SDL_GetKeyboardState(NULL);
     if ( state[up_key] )
         y_pos -= 10;

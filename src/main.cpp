@@ -35,7 +35,7 @@ int main( int argc, char* argv[] )
 
 	// Instantiating the paddles
 	Paddle player1_paddle(0, 0, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
-	Paddle player2_paddle(WIN_WIDTH - 20, 0, SDL_SCANCODE_W, SDL_SCANCODE_S);
+	Paddle player2_paddle(WIN_WIDTH - 10, 0, SDL_SCANCODE_W, SDL_SCANCODE_S);
 	Ball ball( (WIN_WIDTH/2) - 10 , (WIN_HEIGHT/2) + 10 );
 
 
@@ -50,7 +50,8 @@ int main( int argc, char* argv[] )
 		// Draw to and present the new renderer
 		player1_paddle.draw(window.getRenderer());
 		player2_paddle.draw(window.getRenderer());
-    	ball.checkCollision(player1_paddle.getPos(), player2_paddle.getPos());
+		ball.checkPaddleCollision(player1_paddle.getPos(),player2_paddle.getPos());
+    	ball.checkCollision();
 		ball.draw(window.getRenderer());
 		window.draw();
 		window.presentRenderer();
