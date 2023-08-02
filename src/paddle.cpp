@@ -22,9 +22,10 @@ void Paddle::pollEvents()
 {
     // TODO: Not yet fine-tuned, sometimes moves too fast, stutter when other player presses key
     const Uint8 *state = SDL_GetKeyboardState(NULL);
-    if ( state[up_key] )
+    // If the correct key is pressed and not trying to move outside the screen
+    if ( state[up_key] && !(paddle.y == 0) )
         y_pos -= 10;
-    else if ( state[down_key] )
+    else if ( state[down_key] && !(paddle.y == 400 - paddle.h) )
         y_pos += 10;
 
 }
