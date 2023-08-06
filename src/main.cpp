@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 #include <iostream>
 
 #include "Window.hpp"
@@ -17,7 +18,7 @@ void pollEvents(Window &window, Paddle &paddle1, Paddle &paddle2)
 	if ( SDL_PollEvent(&event) )
 	{	
 		// Prevent double pressing bugginess
-		if (event.type == SDL_KEYDOWN )
+		if (event.type == SDL_KEYDOWN ) // Temporary solution -- Not perfect
 		{
 			paddle1.pollEvents();
 			paddle2.pollEvents();
@@ -33,6 +34,9 @@ void initSDL()
 
 	if(!IMG_Init( IMG_INIT_PNG ))
 		std::cout << "Error Initialising SDL_image: " << SDL_GetError() << std::endl;
+
+	if(SDL_Init(SDL_INIT_AUDIO))
+		std::cout << "Error Initialising SDL_mixer: " << SDL_GetError() << std::endl;
 }
 
 int main( int argc, char* argv[] )
