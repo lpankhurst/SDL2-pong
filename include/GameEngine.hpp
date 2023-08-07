@@ -19,9 +19,12 @@ class GameEngine{
     public:
         GameEngine(const int WIN_WIDTH, const int WIN_HEIGHT);
         void initSDL();
-        void pollEvents(Window &window, Paddle &paddle1, Paddle &paddle2);
-        void gameLoop();
+        void handleInputs();
         bool isRunning();
         void closeAll();
+        void updateObjectsPositions();
+        void RenderNewFrame();
+        
+
 
 };

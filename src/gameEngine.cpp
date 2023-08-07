@@ -27,7 +27,7 @@ void GameEngine::initSDL()
 }
 
 
-void GameEngine::pollEvents(Window &window, Paddle &paddle1, Paddle &paddle2)
+void GameEngine::handleInputs()
 {
 	SDL_Event event;
 
@@ -36,25 +36,11 @@ void GameEngine::pollEvents(Window &window, Paddle &paddle1, Paddle &paddle2)
 		// Prevent double pressing bugginess
 		if (event.type == SDL_KEYDOWN ) // Temporary solution -- Not perfect
 		{
-			paddle1.pollEvents();
-			paddle2.pollEvents();
+			player1_paddle.pollEvents();
+			player2_paddle.pollEvents();
 		}
 		window.pollEvents(event);
 	}
-}
-
-void GameEngine::gameLoop()
-{
-    window.clearRenderer(); // clear prev render
-    SDL_Delay(10); // add delay between frames
-    pollEvents(window, player1_paddle, player2_paddle); // check for user inputs related to each object
-    player1_paddle.draw(window.getRenderer()); // draw paddle1
-    player2_paddle.draw(window.getRenderer()); // draw paddle2 
-    ball.checkPaddleCollision(player1_paddle.getPos(), player2_paddle.getPos()); // check if ball hit paddle
-    ball.draw(window.getRenderer()); // draw ball
-    ball.checkCollision(); // check ball hit wall 
-    window.draw(); // draw background 
-    window.presentRenderer(); // present the renderer to the screen 
 }
 
 bool GameEngine::isRunning()
@@ -70,3 +56,18 @@ void GameEngine::closeAll()
     window.destroy();
 }
 
+void GameEngine::updateObjectsPositions()
+{
+	ball.checkPaddleCollision(player1_paddle.getPos(), player2_paddle.getPos()); // check if ball hit paddle
+    ball.checkCollision(); // check ball hit wall 
+}
+
+void GameEngine::RenderNewFrame()
+{
+    window.clearRenderer(); // clear prev render
+    player1_paddle.draw(window.getRenderer()); // draw paddle1
+    player2_paddle.draw(window.getRenderer()); // draw paddle2 
+    ball.draw(window.getRenderer()); // draw ball
+    window.draw(); // draw background 
+    window.presentRenderer(); // present the renderer to the screen 
+}
