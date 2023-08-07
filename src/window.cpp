@@ -21,8 +21,9 @@ Window::Window(const char* title, int width, int height)
     // Create the renderer onto the window
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-
 }
+
+Window::Window(){}
 
 void Window::pollEvents(SDL_Event &event)
 {

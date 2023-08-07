@@ -18,6 +18,8 @@ Paddle::Paddle(int x, int y, SDL_Scancode up, SDL_Scancode down)
 
 }
 
+Paddle::Paddle(){}
+
 void Paddle::pollEvents()
 {
     // TODO: Not yet fine-tuned, stutter when other player presses key

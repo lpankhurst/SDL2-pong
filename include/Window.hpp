@@ -9,8 +9,7 @@ class Window{
         SDL_Window* window;
         
     public:
-        bool isOpen;
-
+        Window();
         Window(const char* title, int width, int height);
         void pollEvents(SDL_Event &event);
         void destroy();
@@ -19,6 +18,7 @@ class Window{
         void presentRenderer();
         SDL_Window* getWindow();
         SDL_Renderer* getRenderer();
+        bool isOpen;
 
 
 

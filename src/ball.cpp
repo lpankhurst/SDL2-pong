@@ -15,6 +15,8 @@ Ball::Ball(int start_x, int start_y)
     x_velocity = y_velocity = 1;
 }
 
+Ball::Ball(){}
+
 void Ball::draw(SDL_Renderer* renderer)
 {
     // Move according to the current velocities

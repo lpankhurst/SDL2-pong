@@ -10,6 +10,7 @@ class Ball{
         SDL_Rect ball;
 
     public:
+        Ball();
         Ball(int start_x, int start_y);
         void draw(SDL_Renderer* renderer);
         void checkCollision();
