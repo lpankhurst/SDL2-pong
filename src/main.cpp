@@ -35,7 +35,7 @@ void initSDL()
 	if(!IMG_Init( IMG_INIT_PNG ))
 		std::cout << "Error Initialising SDL_image: " << SDL_GetError() << std::endl;
 
-	if(SDL_Init(SDL_INIT_AUDIO))
+	if(SDL_Init( SDL_INIT_AUDIO ) < 0 )
 		std::cout << "Error Initialising SDL_mixer: " << SDL_GetError() << std::endl;
 }
 
@@ -55,20 +55,16 @@ int main( int argc, char* argv[] )
 
 	while ( window.isOpen )
 	{
-		// Clear the last Render
-		window.clearRenderer();
-		// Increase the time between frames 
-		SDL_Delay(10);
-		// Check user input(s)
-		pollEvents(window, player1_paddle, player2_paddle);
-		// Draw to and present the new renderer
-		player1_paddle.draw(window.getRenderer());
-		player2_paddle.draw(window.getRenderer());
-		ball.checkPaddleCollision(player1_paddle.getPos(),player2_paddle.getPos());
-		ball.draw(window.getRenderer());
-    	ball.checkCollision();
-		window.draw();
-		window.presentRenderer();
+		window.clearRenderer(); // clear prev render
+		SDL_Delay(10); // add delay between frames
+		pollEvents(window, player1_paddle, player2_paddle); // check for user inputs related to each object
+		player1_paddle.draw(window.getRenderer()); // draw paddle1
+		player2_paddle.draw(window.getRenderer()); // draw paddle2 
+		ball.checkPaddleCollision(player1_paddle.getPos(), player2_paddle.getPos()); // check if ball hit paddle
+		ball.draw(window.getRenderer()); // draw ball
+    	ball.checkCollision(); // check ball hit wall 
+		window.draw(); // draw background 
+		window.presentRenderer(); // present the renderer to the screen 
 
 	}
 
