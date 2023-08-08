@@ -34,12 +34,8 @@ void GameEngine::handleInputs()
 
 	if ( SDL_PollEvent(&event) )
 	{	
-		// Prevent double pressing bugginess
-		if (event.type == SDL_KEYDOWN ) // Temporary solution -- Not perfect
-		{
-			player1_paddle.pollEvents();
-			player2_paddle.pollEvents();
-		}
+		player1_paddle.pollEvents();
+		player2_paddle.pollEvents();
 		window.pollEvents(event);
 	}
 }
@@ -63,7 +59,7 @@ void GameEngine::closeAll()
 	
 }
 
-void GameEngine::updateObjectsPositions()
+void GameEngine::checkAllCollisions()
 {	
 	
 	if( ball.checkPaddleCollision(player1_paddle.getPos(), player2_paddle.getPos()) )

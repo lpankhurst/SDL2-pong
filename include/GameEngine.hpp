@@ -24,7 +24,7 @@ class GameEngine{
         void handleInputs();
         bool isRunning();
         void closeAll();
-        void updateObjectsPositions();
+        void checkAllCollisions();
         void RenderNewFrame();
         
 

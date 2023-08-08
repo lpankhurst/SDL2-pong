@@ -20,7 +20,7 @@ int main( int argc, char* argv[] )
 	while ( gameEngine.isRunning() )
 	{
 		gameEngine.handleInputs();
-		gameEngine.updateObjectsPositions();
+		gameEngine.checkAllCollisions();
 		gameEngine.RenderNewFrame();
 		SDL_Delay(10); // Delay between frames 
 	}
