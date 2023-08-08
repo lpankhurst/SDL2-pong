@@ -12,7 +12,7 @@ class Window{
         Window();
         Window(const char* title, int width, int height);
         void pollEvents(SDL_Event &event);
-        void destroy();
+        void destroyWindowAndRenderer();
         void draw();
         void clearRenderer();
         void presentRenderer();

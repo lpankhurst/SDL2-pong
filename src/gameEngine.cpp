@@ -53,7 +53,13 @@ bool GameEngine::isRunning()
 
 void GameEngine::closeAll()
 {
-    window.destroy();
+    window.destroyWindowAndRenderer();
+	SDL_Quit();
+	IMG_Quit();
+	// Mix_Quit();
+	// TTF_CloseFont(font);
+	// TTF_Quit();
+	
 }
 
 void GameEngine::updateObjectsPositions()

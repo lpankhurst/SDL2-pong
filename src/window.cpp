@@ -33,9 +33,10 @@ void Window::pollEvents(SDL_Event &event)
     }
 }
 
-void Window::destroy()
+void Window::destroyWindowAndRenderer()
 {
     SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
 }
 
 void Window::draw()
