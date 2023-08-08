@@ -5,7 +5,7 @@
 class Paddle{
 
     private:
-        int x_pos;
+        int speed;
         int y_pos;
         SDL_Rect paddle;
         SDL_Scancode up_key;
@@ -15,7 +15,7 @@ class Paddle{
     public:
         Paddle();
         Paddle(int x_pos, int y_pos, SDL_Scancode up_key, SDL_Scancode down_key);
-        void pollEvents();
+        void pollEvents(const Uint8 *state);
         void draw(SDL_Renderer* renderer);
         int getPos();
 

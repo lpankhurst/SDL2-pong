@@ -32,10 +32,13 @@ void GameEngine::handleInputs()
 {
 	SDL_Event event;
 
+	// No longer update the paddles position only when event is triggered
+	// Allows user to hold down keys to move paddles
+	const Uint8 *state = SDL_GetKeyboardState(NULL);
+	player1_paddle.pollEvents(state);
+	player2_paddle.pollEvents(state);
 	if ( SDL_PollEvent(&event) )
 	{	
-		player1_paddle.pollEvents();
-		player2_paddle.pollEvents();
 		window.pollEvents(event);
 	}
 }
