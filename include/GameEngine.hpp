@@ -8,6 +8,7 @@
 #include "Window.hpp"
 #include "Paddle.hpp"
 #include "Ball.hpp"
+#include "AudioManager.hpp"
 
 class GameEngine{
 
@@ -16,6 +17,7 @@ class GameEngine{
         Paddle player1_paddle;
         Paddle player2_paddle;
         Ball ball;
+        AudioManager audio;
     public:
         GameEngine(const int WIN_WIDTH, const int WIN_HEIGHT);
         void initSDL();

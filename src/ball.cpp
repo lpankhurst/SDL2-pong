@@ -27,17 +27,34 @@ void Ball::draw(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer, &ball);
 }
 
-void Ball::checkCollision()
+bool Ball::checkCollision()
 {
     if ( ball.x > 600 - ball.w || ball.x < 0 )
+    {
         x_velocity *= -1;
+        return true;
+    }
     else if ( ball.y > 400 - ball.h || ball.y < 0)
+    {
         y_velocity *= -1;
+        return true;
+    }
+
+    return false;
 }
 
-void Ball::checkPaddleCollision(int paddle1_y, int paddle2_y)
+bool Ball::checkPaddleCollision(int paddle1_y, int paddle2_y)
 {
-    if ( ball.x == 10 || ball.x == 590 - ball.w )
-        x_velocity *= -1;
+    bool ballPaddle1SameX = ball.x == 10;
+    bool ballPaddle2SameX = ball.x == 590 - ball.w;
+    bool ballPaddle1SameY = paddle1_y < ball.y && ball.y < paddle1_y + 100;
+    bool ballPaddle2SameY = paddle2_y < ball.y && ball.y < paddle2_y + 100;
+
+    if (( ballPaddle1SameX && ballPaddle1SameY ) || ( ballPaddle2SameX && ballPaddle2SameY ))
+    {
+            x_velocity *= -1;
+            return true;
+    }
+    return false;
 
 }

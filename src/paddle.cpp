@@ -34,7 +34,7 @@ void Paddle::pollEvents()
 
 }
 
-    
+
 void Paddle::draw(SDL_Renderer* renderer)
 {
     // Update the position of the paddle
