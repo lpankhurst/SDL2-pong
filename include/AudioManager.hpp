@@ -12,7 +12,7 @@ class AudioManager{
     public:
         AudioManager();
         // Imperfect solution, but only need to play one sound effect and music at a time
-        void loadSound(const std::string filePath);
+        void loadSound(const char* filePath);
         void loadMusic(const std::string filePath);
         void playSound();
         void playMusic();
