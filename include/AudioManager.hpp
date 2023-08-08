@@ -1,0 +1,21 @@
+#pragma once 
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
+#include <string>
+
+class AudioManager{ 
+    private:
+        Mix_Chunk* sound;
+        Mix_Music* music;
+
+    public:
+        AudioManager();
+        // Imperfect solution, but only need to play one sound effect and music at a time
+        void loadSound(const std::string filePath);
+        void loadMusic(const std::string filePath);
+        void playSound();
+        void playMusic();
+        void freeSound();
+        void freeMusic();
+};
