@@ -27,10 +27,13 @@ Window::Window(){}
 
 void Window::pollEvents(SDL_Event &event)
 {
-    if ( event.type == SDL_QUIT )
+    bool closedWindow = event.type == SDL_QUIT;
+    bool pressedEscape = event.key.keysym.sym == SDLK_ESCAPE;
+    if ( closedWindow || pressedEscape )
     {
         isOpen = false;
     }
+
 }
 
 void Window::destroyWindowAndRenderer()
