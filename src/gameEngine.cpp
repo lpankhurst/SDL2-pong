@@ -68,7 +68,7 @@ void GameEngine::updateObjectsPositions()
 	
 	if( ball.checkPaddleCollision(player1_paddle.getPos(), player2_paddle.getPos()) )
 	{
-		audio.loadSound("res/audio/sfx_sounds_Blip2.wav");
+		audio.loadSound("res/audio/sfx_sounds_impact14.wav");
 		audio.playSound();
 	}
     if ( ball.checkCollision() )
