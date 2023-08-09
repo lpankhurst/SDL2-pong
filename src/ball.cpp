@@ -27,14 +27,9 @@ void Ball::draw(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer, &ball);
 }
 
-bool Ball::checkCollision()
+bool Ball::checkFloorOrCeilingCollision()
 {
-    if ( ball.x > 600 - ball.w || ball.x < 0 )
-    {
-        x_velocity *= -1;
-        return true;
-    }
-    else if ( ball.y > 400 - ball.h || ball.y < 0)
+    if ( ball.y > 400 - ball.h || ball.y < 0)
     {
         y_velocity *= -1;
         return true;
@@ -56,5 +51,26 @@ bool Ball::checkPaddleCollision(int paddle1_y, int paddle2_y)
             return true;
     }
     return false;
+}
+
+int Ball::checkIfPlayerScored()
+{
+    bool ballInPlayer1Area = ball.x < 0;
+    bool ballInPlayer2Area = ball.x > 600 - ball.w;
+
+    if ( ballInPlayer1Area )
+        return 2;
+    else if ( ballInPlayer2Area )
+        return 1;
+    
+    return 0;
+}
+
+void Ball::resetRound()
+{
+    ball.x = 290;
+    ball.y = 210;
+
+    x_velocity *= -1;
 
 }

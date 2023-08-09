@@ -70,11 +70,19 @@ void GameEngine::checkAllCollisions()
 		audio.loadSound("res/audio/sfx_sounds_impact14.wav");
 		audio.playSound();
 	}
-    if ( ball.checkCollision() )
+    else if ( ball.checkFloorOrCeilingCollision() )
 	{
 		audio.loadSound("res/audio/sfx_sounds_Blip2.wav");
 		audio.playSound();
 	}
+
+	int didPlayerScore = ball.checkIfPlayerScored();
+	if ( didPlayerScore == 1 )
+		player1Scored();
+	else if ( didPlayerScore == 2)
+		player2Scored();
+	
+
 	// audio.freeSound();
 }
 
@@ -86,4 +94,17 @@ void GameEngine::RenderNewFrame()
     ball.draw(window.getRenderer()); // draw ball
     window.draw(); // draw background 
     window.presentRenderer(); // present the renderer to the screen 
+}
+
+void GameEngine::player1Scored()
+{
+	std::cout << "Player 1 Has scored" << std::endl;
+	ball.resetRound();
+
+}
+
+void GameEngine::player2Scored()
+{
+	std::cout << "Player 2 Has scored" << std::endl;
+	ball.resetRound();
 }

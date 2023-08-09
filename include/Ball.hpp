@@ -13,8 +13,10 @@ class Ball{
         Ball();
         Ball(int start_x, int start_y);
         void draw(SDL_Renderer* renderer);
-        bool checkCollision();
+        bool checkFloorOrCeilingCollision();
         bool checkPaddleCollision(int paddle1_y, int paddle2_y);
+        int checkIfPlayerScored();
+        void resetRound();
 
 
 };

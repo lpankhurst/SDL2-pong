@@ -26,6 +26,8 @@ class GameEngine{
         void closeAll();
         void checkAllCollisions();
         void RenderNewFrame();
+        void player1Scored();
+        void player2Scored();
         
 
 
