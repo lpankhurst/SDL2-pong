@@ -7,12 +7,13 @@
 Ball::Ball(int start_x, int start_y)
 {   
     // Setting the initial position of the ball
-    ball.y = start_y;
-    ball.x = start_x;
+    x_pos = start_y;
+    y_pos = start_x;
     // Size of the ball
     ball.w = ball.h = 10;
     // Start velocitiy of the ball
-    x_velocity = y_velocity = 1;
+    x_velocity = y_velocity = 0.5;
+
 }
 
 Ball::Ball(){}
@@ -20,16 +21,20 @@ Ball::Ball(){}
 void Ball::draw(SDL_Renderer* renderer)
 {
     // Move according to the current velocities
-    ball.x += x_velocity;
-    ball.y += y_velocity;
+    x_pos += x_velocity;
+    y_pos += y_velocity;
     
+    // Setting the position of the ball like this and not setting ball.x allows 
+    // Ball to move by decimal amounts, but is only visually moves when x_pos or y_pos 
+    // changes by a whole number (ie at least one pixel)
+    SDL_Rect ball = { static_cast<int>(x_pos), static_cast<int>(y_pos), 10, 10 };
     SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
     SDL_RenderFillRect(renderer, &ball);
 }
 
 bool Ball::checkFloorOrCeilingCollision()
 {
-    if ( ball.y > 400 - ball.h || ball.y < 0)
+    if ( y_pos > 400 - ball.h || y_pos < 0)
     {
         y_velocity *= -1;
         return true;
@@ -40,10 +45,10 @@ bool Ball::checkFloorOrCeilingCollision()
 
 bool Ball::checkPaddleCollision(int paddle1_y, int paddle2_y)
 {
-    bool ballPaddle1SameX = ball.x == 10;
-    bool ballPaddle2SameX = ball.x == 590 - ball.w;
-    bool ballPaddle1SameY = paddle1_y < ball.y && ball.y < paddle1_y + 100;
-    bool ballPaddle2SameY = paddle2_y < ball.y && ball.y < paddle2_y + 100;
+    bool ballPaddle1SameX = x_pos == 10;
+    bool ballPaddle2SameX = x_pos == 590 - ball.w;
+    bool ballPaddle1SameY = paddle1_y < y_pos && y_pos < paddle1_y + 100;
+    bool ballPaddle2SameY = paddle2_y < y_pos && y_pos < paddle2_y + 100;
 
     if (( ballPaddle1SameX && ballPaddle1SameY ) || ( ballPaddle2SameX && ballPaddle2SameY ))
     {
@@ -55,8 +60,8 @@ bool Ball::checkPaddleCollision(int paddle1_y, int paddle2_y)
 
 int Ball::checkIfPlayerScored()
 {
-    bool ballInPlayer1Area = ball.x < 0;
-    bool ballInPlayer2Area = ball.x > 600 - ball.w;
+    bool ballInPlayer1Area = x_pos < 0;
+    bool ballInPlayer2Area = x_pos > 600 - ball.w;
 
     if ( ballInPlayer1Area )
         return 2;
@@ -68,8 +73,8 @@ int Ball::checkIfPlayerScored()
 
 void Ball::resetRound()
 {
-    ball.x = 290;
-    ball.y = 210;
+    x_pos = 290;
+    y_pos = 210;
 
     x_velocity *= -1;
 

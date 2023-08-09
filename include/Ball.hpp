@@ -7,6 +7,8 @@ class Ball{
     private:
         float x_velocity;
         float y_velocity;
+        float x_pos;
+        float y_pos;
         SDL_Rect ball;
 
     public:
