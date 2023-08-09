@@ -22,7 +22,7 @@ int main( int argc, char* argv[] )
 		gameEngine.handleInputs();
 		gameEngine.checkAllCollisions();
 		gameEngine.RenderNewFrame();
-		SDL_Delay(10); // Delay between frames 
+		SDL_Delay(5); // Delay between frames 
 	}
 
 	gameEngine.closeAll();

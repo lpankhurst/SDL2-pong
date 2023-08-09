@@ -16,7 +16,7 @@ Paddle::Paddle(int x, int y, SDL_Scancode up, SDL_Scancode down)
     up_key = up;
     down_key = down;
 
-    speed = 2;
+    speed = 1;
 
 
 
