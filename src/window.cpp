@@ -27,8 +27,8 @@ Window::Window(){}
 
 void Window::pollEvents(SDL_Event &event)
 {
-    bool closedWindow = event.type == SDL_QUIT;
-    bool pressedEscape = event.key.keysym.sym == SDLK_ESCAPE;
+    bool closedWindow = ( event.type == SDL_QUIT );
+    bool pressedEscape = ( event.key.keysym.sym == SDLK_ESCAPE );
     if ( closedWindow || pressedEscape )
     {
         isOpen = false;
@@ -44,7 +44,7 @@ void Window::destroyWindowAndRenderer()
 
 void Window::draw()
 {
-    SDL_SetRenderDrawColor(renderer, 100, 100, 150, 255);
+    SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
 }
 
 void Window::clearRenderer()

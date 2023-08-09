@@ -23,7 +23,7 @@ void Ball::draw(SDL_Renderer* renderer)
     ball.x += x_velocity;
     ball.y += y_velocity;
     
-    SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
+    SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
     SDL_RenderFillRect(renderer, &ball);
 }
 
