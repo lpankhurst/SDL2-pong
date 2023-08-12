@@ -26,14 +26,19 @@ Paddle::Paddle(){}
 
 void Paddle::pollEvents(const Uint8 *state)
 {
-    // TODO: Not yet fine-tuned, stutter when other player presses key
+    bool moveUp = ( state[up_key] && !(paddle.y == 0) );
+    bool moveDown = ( state[down_key] && !(paddle.y == 400 - paddle.h) );
     // If the correct key is pressed and not trying to move outside the screen
-    if ( state[up_key] && !(paddle.y == 0) )
+    if ( moveUp )
     {
-        y_pos -= speed;
-    }
-    else if ( state[down_key] && !(paddle.y == 400 - paddle.h) )
+        speed = -1;
         y_pos += speed;
+    }
+    else if ( moveDown )
+    {
+        speed = 1;
+        y_pos += speed;
+    }
 
     paddle.y = y_pos;
 }
@@ -52,4 +57,9 @@ void Paddle::draw(SDL_Renderer* renderer)
 int Paddle::getPos()
 {
     return y_pos;
+}
+
+int Paddle::getSpeed()
+{
+    return speed;
 }

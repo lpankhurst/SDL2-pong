@@ -12,7 +12,8 @@ Ball::Ball(int start_x, int start_y)
     // Size of the ball
     ball.w = ball.h = 10;
     // Start velocitiy of the ball
-    x_velocity = y_velocity = 0.5;
+    x_velocity = 0.5;
+    y_velocity = 0.5;
 
 }
 
@@ -43,17 +44,23 @@ bool Ball::checkFloorOrCeilingCollision()
     return false;
 }
 
-bool Ball::checkPaddleCollision(int paddle1_y, int paddle2_y)
+bool Ball::checkPaddleCollision(int paddle1_y, int paddle2_y, int paddle1_vel, int paddle2_vel)
 {
     bool ballPaddle1SameX = x_pos == 10;
     bool ballPaddle2SameX = x_pos == 590 - ball.w;
     bool ballPaddle1SameY = paddle1_y < y_pos && y_pos < paddle1_y + 100;
     bool ballPaddle2SameY = paddle2_y < y_pos && y_pos < paddle2_y + 100;
 
-    if (( ballPaddle1SameX && ballPaddle1SameY ) || ( ballPaddle2SameX && ballPaddle2SameY ))
+    if (( ballPaddle1SameX && ballPaddle1SameY ))
     {
-            x_velocity *= -1;
-            return true;
+        x_velocity *= -1;
+        paddle1_vel *= paddle1_vel;
+        return true;
+    } else if ( ballPaddle2SameX && ballPaddle2SameY )
+    {
+        x_velocity *= -1;
+        y_velocity *= paddle2_vel;
+        return true;
     }
     return false;
 }

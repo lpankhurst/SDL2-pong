@@ -18,5 +18,6 @@ class Paddle{
         void pollEvents(const Uint8 *state);
         void draw(SDL_Renderer* renderer);
         int getPos();
+        int getSpeed();
 
 };

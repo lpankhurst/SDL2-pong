@@ -65,7 +65,7 @@ void GameEngine::closeAll()
 void GameEngine::checkAllCollisions()
 {	
 	
-	if( ball.checkPaddleCollision(player1_paddle.getPos(), player2_paddle.getPos()) )
+	if( ball.checkPaddleCollision(player1_paddle.getPos(), player2_paddle.getPos(), player1_paddle.getSpeed(), player2_paddle.getSpeed()))
 	{
 		audio.loadSound("res/audio/sfx_sounds_impact14.wav");
 		audio.playSound();
