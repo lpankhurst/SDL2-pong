@@ -12,7 +12,7 @@ Ball::Ball(int start_x, int start_y)
     // Size of the ball
     ball.w = ball.h = 10;
     // Start velocitiy of the ball
-    x_velocity = 0.5;
+    x_velocity = 1.0;
     y_velocity = 0.5;
 
 }
@@ -51,15 +51,18 @@ bool Ball::checkPaddleCollision(int paddle1_y, int paddle2_y, int paddle1_vel, i
     bool ballPaddle1SameY = paddle1_y < y_pos && y_pos < paddle1_y + 100;
     bool ballPaddle2SameY = paddle2_y < y_pos && y_pos < paddle2_y + 100;
 
+    float multiplier;
+    
+
     if (( ballPaddle1SameX && ballPaddle1SameY ))
-    {
-        x_velocity *= -1;
+    {   
+        calcNewXSpeed(paddle1_y);
         x_pos = 10;
         y_velocity *= -paddle1_vel;
         return true;
     } else if ( ballPaddle2SameX && ballPaddle2SameY )
     {
-        x_velocity *= -1;
+        calcNewXSpeed(paddle2_y);
         x_pos = 590 - ball.w;
         y_velocity *= -paddle2_vel;
         return true;
@@ -85,6 +88,38 @@ void Ball::resetRound()
     x_pos = 290;
     y_pos = 210;
 
-    x_velocity *= -1;
+    // Reset the ball speed and set direction so losing player gets first hit 
+    x_velocity = 1.0 * ( x_velocity / abs(x_velocity));
 
+}
+
+// Increase the x_velocity if the ball hits closer to the middle of the paddle
+// Decrease the velocity if hits the edges 
+void Ball::calcNewXSpeed(int paddle_pos)
+{   
+    double x_multiplier;
+    const float MAX_SPEED = 2.5;
+    const float MIN_SPEED = 0.7;
+    // The point the ball hit the paddle relative to the paddle 
+    float relative_y =  -1 * (y_pos - paddle_pos);
+
+    // curve : x = -1/2800 * (y)(y+100) + 0.4
+    x_multiplier = -1.0/2800.0 * (relative_y) * (relative_y+100) + 0.33;
+    x_velocity *= -1 * x_multiplier;
+
+    if ( abs(x_velocity) < MIN_SPEED )
+    {
+        // Correct direction of new velocity
+        if ( x_velocity < 0)
+            x_velocity = -MIN_SPEED;
+        else
+            x_velocity = MIN_SPEED;
+    } else if ( abs(x_velocity) > MAX_SPEED )
+    {
+        //  Correct direction of new velocity
+        if ( x_velocity < 0)
+            x_velocity = -MAX_SPEED;
+        else
+            x_velocity = MAX_SPEED;
+    }
 }
