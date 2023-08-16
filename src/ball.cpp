@@ -13,7 +13,7 @@ Ball::Ball(int start_x, int start_y)
     ball.w = ball.h = 10;
     // Start velocitiy of the ball
     x_velocity = 1.0;
-    y_velocity = 0.5;
+    y_velocity = 0.6;
 
 }
 
@@ -97,7 +97,7 @@ void Ball::calcNewXSpeed(int paddle_pos)
 {   
     double x_multiplier;
     const float MAX_SPEED = 2.5;
-    const float MIN_SPEED = 0.7;
+    const float MIN_SPEED = 0.8;
     // The point the ball hit the paddle relative to the paddle 
     float relative_y =  -1 * (y_pos - paddle_pos);
 
