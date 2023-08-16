@@ -2,25 +2,26 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
+
+#include <string>
 
 Window::Window(const char* title, int width, int height)
     :window(NULL), renderer(NULL)
 {
     // Create the window
     window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
-
     if ( window == NULL )
-    {
         std::cout << "Error Creating Window: " << SDL_GetError() << std::endl;
-    }
-
+    
     // Tell the gameloop the window is open
     isOpen = true;
 
     // Create the renderer onto the window
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
+    if ( renderer == NULL )
+        std::cout << "Error Creating Renderer: " << SDL_GetError() << std::endl; 
 }
 
 Window::Window(){}
@@ -70,4 +71,33 @@ void Window::drawHalfwayLine()
         SDL_SetRenderDrawColor(renderer, 100, 100, 100, 40);
         SDL_RenderFillRect(renderer, &dot);
     }
+}
+
+void Window::drawScores(int player1Score, int player2Score)
+{
+    SDL_Color White = {255, 255, 255};
+    std::string scoreString = std::to_string(player1Score) + "  " + std::to_string(player2Score);
+    const char* scoreDisplay = scoreString.c_str();
+    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, scoreDisplay, White); 
+    // Better to use Textures to utilise the gpu
+    SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage); 
+    SDL_Rect Message_rect; //create a rect
+    Message_rect.x = 245;  //controls the rect's x coordinate 
+    Message_rect.y = 10; // controls the rect's y coordinte
+    Message_rect.w = 120; // controls the width of the rect
+    Message_rect.h = 35; // controls the height of the rect
+
+    SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+
+    // Don't forget to free your surface and texture
+    SDL_FreeSurface(surfaceMessage);
+    SDL_DestroyTexture(Message);
+}
+
+void Window::initFont()
+{   
+    // Loading the font 
+    font = TTF_OpenFont("res/fonts/volleyball.ttf", 20);
+    if ( font == NULL )
+        std::cout << "Error Loading Font: " << TTF_GetError() << std::endl; 
 }

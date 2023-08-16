@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
 
 
@@ -13,6 +14,7 @@ GameEngine::GameEngine(const int WIN_WIDTH, const int WIN_HEIGHT)
 	player2_paddle = Paddle(WIN_WIDTH - 10, 0, SDL_SCANCODE_W, SDL_SCANCODE_S);
 	ball = Ball( (WIN_WIDTH/2) - 10 , (WIN_HEIGHT/2) + 10 );
 	audio = AudioManager();
+	player1Score = player2Score = 0;
 }
 
 void GameEngine::initSDL()
@@ -25,8 +27,13 @@ void GameEngine::initSDL()
 
 	if(SDL_Init( SDL_INIT_AUDIO ) < 0 )
 		std::cout << "Error Initialising SDL_mixer: " << SDL_GetError() << std::endl;
-}
+	std::cout << "1" << std::endl;
+	if(TTF_Init() < 0)
+		std::cout << "Error Initialising SDL_ttf: " << TTF_GetError() << std::endl;
 
+	window.initFont();
+	
+}
 
 void GameEngine::handleInputs()
 {
@@ -94,18 +101,23 @@ void GameEngine::RenderNewFrame()
 	window.drawHalfwayLine(); // draw halfway line
     ball.draw(window.getRenderer()); // draw ball
     window.drawBackground(); // draw background - important to do this last
+	window.drawScores(player1Score, player2Score);
     window.presentRenderer(); // present the renderer to the screen 
 }
 
 void GameEngine::player1Scored()
-{
+{	
+	player1Score++;
 	std::cout << "Player 1 Has scored" << std::endl;
 	ball.resetRound();
 
 }
 
 void GameEngine::player2Scored()
-{
+{	
+
+	player2Score++;
 	std::cout << "Player 2 Has scored" << std::endl;
 	ball.resetRound();
 }
+
