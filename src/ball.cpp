@@ -51,20 +51,17 @@ bool Ball::checkPaddleCollision(int paddle1_y, int paddle2_y, int paddle1_vel, i
     bool ballPaddle1SameY = paddle1_y < y_pos && y_pos < paddle1_y + 100;
     bool ballPaddle2SameY = paddle2_y < y_pos && y_pos < paddle2_y + 100;
 
-    float multiplier;
-    
-
     if (( ballPaddle1SameX && ballPaddle1SameY ))
     {   
         calcNewXSpeed(paddle1_y);
-        x_pos = 10;
-        y_velocity *= -paddle1_vel;
+        x_pos = 10; // Reset to paddle surface
+        y_velocity = calcNewYSpeed(paddle1_vel);
         return true;
     } else if ( ballPaddle2SameX && ballPaddle2SameY )
     {
         calcNewXSpeed(paddle2_y);
         x_pos = 590 - ball.w;
-        y_velocity *= -paddle2_vel;
+        y_velocity = calcNewYSpeed(paddle2_vel);
         return true;
     }
     return false;
@@ -89,7 +86,8 @@ void Ball::resetRound()
     y_pos = 210;
 
     // Reset the ball speed and set direction so losing player gets first hit 
-    x_velocity = 1.0 * ( x_velocity / abs(x_velocity));
+    x_velocity = ( x_velocity / abs(x_velocity));
+    y_velocity = 1;
 
 }
 
@@ -122,4 +120,19 @@ void Ball::calcNewXSpeed(int paddle_pos)
         else
             x_velocity = MAX_SPEED;
     }
+}
+
+// Give the Ball a new y_velocity randomly, but in the direction of the paddles last movement
+// in order to give the feeling of the paddle being 'grippy'
+float Ball::calcNewYSpeed(int paddle_vel)
+{
+    double randNum;
+    randNum = rand() % 70 + 50; // Generate random int between 50-120
+    randNum /= 100; // Convert to single digit number 
+
+    if ( paddle_vel < 0 )
+        return randNum * -1;
+    
+    return randNum;
+
 }

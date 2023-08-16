@@ -18,6 +18,7 @@ class Ball{
         bool checkFloorOrCeilingCollision();
         bool checkPaddleCollision(int paddle1_y, int paddle2_y, int paddle1_vel, int paddle2_vel);
         void calcNewXSpeed(int paddle_pos);
+        float calcNewYSpeed(int paddle_vel);
         int checkIfPlayerScored();
         void resetRound();
 
