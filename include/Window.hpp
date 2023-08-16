@@ -9,16 +9,17 @@ class Window{
         SDL_Window* window;
         
     public:
+        bool isOpen;
         Window();
         Window(const char* title, int width, int height);
         void pollEvents(SDL_Event &event);
         void destroyWindowAndRenderer();
-        void draw();
+        void drawBackground();
+        void drawHalfwayLine();
         void clearRenderer();
         void presentRenderer();
         SDL_Window* getWindow();
         SDL_Renderer* getRenderer();
-        bool isOpen;
 
 
 

@@ -91,8 +91,9 @@ void GameEngine::RenderNewFrame()
     window.clearRenderer(); // clear prev render
     player1_paddle.draw(window.getRenderer()); // draw paddle1
     player2_paddle.draw(window.getRenderer()); // draw paddle2 
+	window.drawHalfwayLine(); // draw halfway line
     ball.draw(window.getRenderer()); // draw ball
-    window.draw(); // draw background 
+    window.drawBackground(); // draw background - important to do this last
     window.presentRenderer(); // present the renderer to the screen 
 }
 

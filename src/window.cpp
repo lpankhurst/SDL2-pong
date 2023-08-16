@@ -42,7 +42,7 @@ void Window::destroyWindowAndRenderer()
     SDL_DestroyRenderer(renderer);
 }
 
-void Window::draw()
+void Window::drawBackground()
 {
     SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
 }
@@ -62,3 +62,12 @@ SDL_Renderer* Window::getRenderer()
     return renderer;
 }
 
+void Window::drawHalfwayLine()
+{   
+    for (int y = 12; y < 400; y=y+50)
+    {
+        SDL_Rect dot = { static_cast<int>(300), static_cast<int>(y), 8, 25 };
+        SDL_SetRenderDrawColor(renderer, 100, 100, 100, 40);
+        SDL_RenderFillRect(renderer, &dot);
+    }
+}
