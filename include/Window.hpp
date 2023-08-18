@@ -3,9 +3,11 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+// The window and renderer class, contains generic methods to do with managing the renderer and window
+// Drawing objects to the window should be done in a class like GameScreen
 class Window{
     
-    private:
+    protected: // Might be better to make this private 
         SDL_Renderer* renderer;
         SDL_Window* window;
         TTF_Font* font;
@@ -13,18 +15,18 @@ class Window{
     public:
         bool isOpen;
         Window();
+        // TODO need to make fullscreen an option, and pass width and height everywhere that uses it 
         Window(const char* title, int width, int height);
         void pollEvents(SDL_Event &event);
         void destroyWindowAndRenderer();
-        void drawBackground();
-        void drawHalfwayLine();
         void clearRenderer();
         void presentRenderer();
+        void initFont();
         SDL_Window* getWindow();
         SDL_Renderer* getRenderer();
+        // Need to make these methods of the GameScreen class
+        void drawBackground(); // Maybe make this virtual and override 
+        void drawHalfwayLine();
         void drawScores(int player1Score, int player2Score);
-        void initFont();
-
-
 
 };

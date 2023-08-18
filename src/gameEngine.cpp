@@ -15,6 +15,8 @@ GameEngine::GameEngine(const int WIN_WIDTH, const int WIN_HEIGHT)
 	ball = Ball( (WIN_WIDTH/2) - 10 , (WIN_HEIGHT/2) + 10 );
 	audio = AudioManager();
 	player1Score = player2Score = 0;
+	
+	GameScreen gameScreen = GameScreen(window);
 }
 
 void GameEngine::initSDL()
@@ -108,8 +110,13 @@ void GameEngine::RenderNewFrame()
 void GameEngine::player1Scored()
 {	
 	player1Score++;
+	if ( player1Score > 7 )
+	{
+		std::cout << "Player 1 Won" << std::endl;
+	}
 	std::cout << "Player 1 Has scored" << std::endl;
 	ball.resetRound();
+
 
 }
 

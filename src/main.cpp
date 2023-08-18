@@ -13,10 +13,14 @@ const int WIN_WIDTH = 600;
 const int WIN_HEIGHT = 400;
 
 int main( int argc, char* argv[] )
-{
+{	
+	// Start-menu loop
+
+
 	GameEngine gameEngine = GameEngine(WIN_WIDTH, WIN_HEIGHT);
 	gameEngine.initSDL();
 
+	// Gameplay loop
 	while ( gameEngine.isRunning() )
 	{
 		gameEngine.handleInputs();

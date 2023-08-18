@@ -9,6 +9,8 @@
 #include "Paddle.hpp"
 #include "Ball.hpp"
 #include "AudioManager.hpp"
+#include "GameScreen.hpp"
+
 
 class GameEngine{
 
