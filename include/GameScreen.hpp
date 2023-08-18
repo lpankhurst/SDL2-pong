@@ -9,11 +9,10 @@
 // I.e not in a menu 
 class GameScreen : public Window{
     private:
-        Window window;
     public:
-        GameScreen(Window win);
-        void drawBackground();
-        void drawHalfwayLine();
-        void drawScores(int player1Score, int player2Score);
+        GameScreen();
+        void drawBackground(SDL_Renderer* renderer);
+        void drawHalfwayLine(SDL_Renderer* renderer);
+        void drawScores(SDL_Renderer* renderer, TTF_Font* font, int player1Score, int player2Score);
 
 };

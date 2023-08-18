@@ -15,8 +15,8 @@ GameEngine::GameEngine(const int WIN_WIDTH, const int WIN_HEIGHT)
 	ball = Ball( (WIN_WIDTH/2) - 10 , (WIN_HEIGHT/2) + 10 );
 	audio = AudioManager();
 	player1Score = player2Score = 0;
-	
-	GameScreen gameScreen = GameScreen(window);
+
+	GameScreen gameScreen = GameScreen();
 }
 
 void GameEngine::initSDL()
@@ -29,11 +29,11 @@ void GameEngine::initSDL()
 
 	if(SDL_Init( SDL_INIT_AUDIO ) < 0 )
 		std::cout << "Error Initialising SDL_mixer: " << SDL_GetError() << std::endl;
-	std::cout << "1" << std::endl;
+
 	if(TTF_Init() < 0)
 		std::cout << "Error Initialising SDL_ttf: " << TTF_GetError() << std::endl;
 
-	window.initFont();
+	initFont();
 	
 }
 
@@ -61,7 +61,7 @@ bool GameEngine::isRunning()
 }
 
 void GameEngine::closeAll()
-{
+{	
     window.destroyWindowAndRenderer();
 	SDL_Quit();
 	IMG_Quit();
@@ -97,13 +97,17 @@ void GameEngine::checkAllCollisions()
 
 void GameEngine::RenderNewFrame()
 {
+	SDL_Renderer* renderer = window.getRenderer();
     window.clearRenderer(); // clear prev render
-    player1_paddle.draw(window.getRenderer()); // draw paddle1
-    player2_paddle.draw(window.getRenderer()); // draw paddle2 
-	window.drawHalfwayLine(); // draw halfway line
-    ball.draw(window.getRenderer()); // draw ball
-    window.drawBackground(); // draw background - important to do this last
-	window.drawScores(player1Score, player2Score);
+    player1_paddle.draw(renderer); // draw paddle1
+    player2_paddle.draw(renderer); // draw paddle2 
+	// window.drawHalfwayLine(); // draw halfway line
+	gameScreen.drawHalfwayLine(renderer);
+    ball.draw(renderer); // draw ball
+    // window.drawBackground(); // draw background - important to do this last
+	// window.drawScores(player1Score, player2Score);
+	gameScreen.drawBackground(renderer);
+	gameScreen.drawScores(renderer, font, player1Score, player2Score);
     window.presentRenderer(); // present the renderer to the screen 
 }
 
@@ -128,3 +132,10 @@ void GameEngine::player2Scored()
 	ball.resetRound();
 }
 
+void GameEngine::initFont()
+{
+	// Loading the font 
+    font = TTF_OpenFont("res/fonts/volleyball.ttf", 20);
+    if ( font == NULL )
+        std::cout << "Error Loading Font: " << TTF_GetError() << std::endl; 
+}

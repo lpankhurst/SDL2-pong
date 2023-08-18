@@ -3,11 +3,11 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
-// The window and renderer class, contains generic methods to do with managing the renderer and window
+// A wrapper for SDL_Window and SDL_Renderer, contains generic methods to do with managing the renderer and window
 // Drawing objects to the window should be done in a class like GameScreen
 class Window{
     
-    protected: // Might be better to make this private 
+    private:
         SDL_Renderer* renderer;
         SDL_Window* window;
         TTF_Font* font;
@@ -24,6 +24,7 @@ class Window{
         void initFont();
         SDL_Window* getWindow();
         SDL_Renderer* getRenderer();
+        TTF_Font* getFont();
         // Need to make these methods of the GameScreen class
         void drawBackground(); // Maybe make this virtual and override 
         void drawHalfwayLine();

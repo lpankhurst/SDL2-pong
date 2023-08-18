@@ -20,8 +20,10 @@ class GameEngine{
         Paddle player2_paddle;
         Ball ball;
         AudioManager audio;
+        GameScreen gameScreen;
         int player1Score;
         int player2Score;
+        TTF_Font* font;
     public:
         GameEngine(const int WIN_WIDTH, const int WIN_HEIGHT);
         void initSDL();
@@ -32,7 +34,6 @@ class GameEngine{
         void RenderNewFrame();
         void player1Scored();
         void player2Scored();
+        void initFont();
         
-
-
 };

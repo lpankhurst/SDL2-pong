@@ -28,7 +28,8 @@ int main( int argc, char* argv[] )
 		gameEngine.RenderNewFrame();
 		SDL_Delay(5); // Delay between frames 
 	}
-
+	
+	// Not sure if fixed or hard to replicate error, but "Bus Error 10" used to happen here 
 	gameEngine.closeAll();
 
 	return 0;
