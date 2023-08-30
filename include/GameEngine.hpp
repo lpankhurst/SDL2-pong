@@ -35,5 +35,6 @@ class GameEngine{
         void player1Scored();
         void player2Scored();
         void initFont();
+        int gameState;
         
 };

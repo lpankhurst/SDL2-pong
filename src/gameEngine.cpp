@@ -15,7 +15,7 @@ GameEngine::GameEngine(const int WIN_WIDTH, const int WIN_HEIGHT)
 	ball = Ball( (WIN_WIDTH/2) - 10 , (WIN_HEIGHT/2) + 10 );
 	audio = AudioManager();
 	player1Score = player2Score = 0;
-
+	gameState = 0; // Starting in the start-menu gameState
 	GameScreen gameScreen = GameScreen();
 }
 
@@ -64,7 +64,7 @@ void GameEngine::closeAll()
 {	
     window.destroyWindowAndRenderer();
 	SDL_Quit();
-	IMG_Quit();
+	// IMG_Quit();
 	// Mix_Quit();
 	// TTF_CloseFont(font);
 	// TTF_Quit();
@@ -101,11 +101,8 @@ void GameEngine::RenderNewFrame()
     window.clearRenderer(); // clear prev render
     player1_paddle.draw(renderer); // draw paddle1
     player2_paddle.draw(renderer); // draw paddle2 
-	// window.drawHalfwayLine(); // draw halfway line
 	gameScreen.drawHalfwayLine(renderer);
     ball.draw(renderer); // draw ball
-    // window.drawBackground(); // draw background - important to do this last
-	// window.drawScores(player1Score, player2Score);
 	gameScreen.drawBackground(renderer);
 	gameScreen.drawScores(renderer, font, player1Score, player2Score);
     window.presentRenderer(); // present the renderer to the screen 

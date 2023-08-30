@@ -1,13 +1,12 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
-
-#include <Window.hpp>
 
 // This class draws the elements that should appear on the screen while playing the game
 // I.e not in a menu 
-class GameScreen : public Window{
+class GameScreen{
     private:
     public:
         GameScreen();
