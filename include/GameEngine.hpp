@@ -27,14 +27,20 @@ class GameEngine{
     public:
         GameEngine(const int WIN_WIDTH, const int WIN_HEIGHT);
         void initSDL();
-        void handleInputs();
+        void handleGameInputs();
+        void handleStartInputs();
+        void handleEndInputs();
+        void handleGenericInputs();
+        void RenderNewGameFrame();
+        void RenderNewStartFrame();
+        void RenderNewEndFrame();
         bool isRunning();
         void closeAll();
         void checkAllCollisions();
-        void RenderNewFrame();
         void player1Scored();
         void player2Scored();
         void initFont();
+        void presentRenderer();
         int gameState;
         
 };

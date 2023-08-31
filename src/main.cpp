@@ -21,11 +21,6 @@ int main( int argc, char* argv[] )
 	// Gameplay loop
 	while ( gameEngine.isRunning() )
 	{
-		// gameEngine.handleInputs();
-		// gameEngine.checkAllCollisions();
-		// gameEngine.RenderNewFrame();
-		// SDL_Delay(5); // Delay between frames
-		
 
 		switch ( gameEngine.gameState )
 		{
@@ -34,30 +29,34 @@ int main( int argc, char* argv[] )
 				// get inputs
 				// update objects
 				// Render frame
-				std::cout << "Start-menu exitted" << std::endl;
+				gameEngine.RenderNewStartFrame();
+
+
 				gameEngine.gameState = 1;
 				break;
 
 			case 1: // Gameplay state
 
-				gameEngine.handleInputs();
+				gameEngine.handleGameInputs();
 				gameEngine.checkAllCollisions();
-				gameEngine.RenderNewFrame();
+				gameEngine.RenderNewGameFrame();
 
 				break;
 
 			case 2: // Game over state
 
+				// TODO
 				break;
 
 		}
+		
+		gameEngine.handleGenericInputs();
 
+		// do delta time 
 		// Delay
 		SDL_Delay(5);
-		// Present Renderer
-		// Clear Renderer ** maybe do before switch statement
-
-		// break;
+		// Present Renderer & clear for next
+		gameEngine.presentRenderer();
 	
 	}
 

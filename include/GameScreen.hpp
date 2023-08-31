@@ -9,9 +9,9 @@
 class GameScreen{
     private:
     public:
-        GameScreen();
-        void drawBackground(SDL_Renderer* renderer);
-        void drawHalfwayLine(SDL_Renderer* renderer);
-        void drawScores(SDL_Renderer* renderer, TTF_Font* font, int player1Score, int player2Score);
+        GameScreen(){};
+        static void drawBackground(SDL_Renderer* renderer);
+        static void drawHalfwayLine(SDL_Renderer* renderer);
+        static void drawScores(SDL_Renderer* renderer, TTF_Font* font, int player1Score, int player2Score);
 
 };

@@ -4,11 +4,6 @@
 #include <SDL2/SDL_ttf.h>
 #include <iostream>
 
-GameScreen::GameScreen()
-{
-
-}
-
 void GameScreen::drawBackground(SDL_Renderer* _renderer)
 {
     SDL_SetRenderDrawColor(_renderer, 30, 30, 30, 255);

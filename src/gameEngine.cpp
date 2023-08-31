@@ -16,7 +16,6 @@ GameEngine::GameEngine(const int WIN_WIDTH, const int WIN_HEIGHT)
 	audio = AudioManager();
 	player1Score = player2Score = 0;
 	gameState = 0; // Starting in the start-menu gameState
-	GameScreen gameScreen = GameScreen();
 }
 
 void GameEngine::initSDL()
@@ -37,19 +36,17 @@ void GameEngine::initSDL()
 	
 }
 
-void GameEngine::handleInputs()
+// Handles inputs concerning during the gameplay game state
+void GameEngine::handleGameInputs()
 {
-	SDL_Event event;
+	// !! Not great but works
 
-	// No longer update the paddles position only when event is triggered
-	// Allows user to hold down keys to move paddles
+	// Get the entire state of the keyboard 
 	const Uint8 *state = SDL_GetKeyboardState(NULL);
-	player1_paddle.pollEvents(state);
+	// See if any keys are pressed that would move a paddle
+	player1_paddle.pollEvents(state); 
 	player2_paddle.pollEvents(state);
-	if ( SDL_PollEvent(&event) )
-	{	
-		window.pollEvents(event);
-	}
+	
 }
 
 bool GameEngine::isRunning()
@@ -95,17 +92,31 @@ void GameEngine::checkAllCollisions()
 	// audio.freeSound();
 }
 
-void GameEngine::RenderNewFrame()
+// Draws all the objects to the screen that are involved during the gamplay state
+void GameEngine::RenderNewGameFrame()
 {
 	SDL_Renderer* renderer = window.getRenderer();
-    window.clearRenderer(); // clear prev render
     player1_paddle.draw(renderer); // draw paddle1
     player2_paddle.draw(renderer); // draw paddle2 
-	gameScreen.drawHalfwayLine(renderer);
+	GameScreen::drawHalfwayLine(renderer);
     ball.draw(renderer); // draw ball
-	gameScreen.drawBackground(renderer);
-	gameScreen.drawScores(renderer, font, player1Score, player2Score);
+	GameScreen::drawBackground(renderer);
+	GameScreen::drawScores(renderer, font, player1Score, player2Score);
+
+}
+
+// Renders Everything on the start menu
+void GameEngine::RenderNewStartFrame()
+{
+	
+}
+
+// Calls Window methods to present the render to the screen, and clear it for the next frame
+void GameEngine::presentRenderer()
+{
     window.presentRenderer(); // present the renderer to the screen 
+    window.clearRenderer(); // clear prev render
+
 }
 
 void GameEngine::player1Scored()
@@ -136,3 +147,18 @@ void GameEngine::initFont()
     if ( font == NULL )
         std::cout << "Error Loading Font: " << TTF_GetError() << std::endl; 
 }
+
+// Handles inputs relevant to all game state types such as closing of the window
+void GameEngine::handleGenericInputs()
+{	
+	SDL_Event event;
+
+	if ( SDL_PollEvent(&event) )
+	{	
+		window.pollEvents(event);
+	}
+}
+
+
+
+
