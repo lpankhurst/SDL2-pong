@@ -9,7 +9,6 @@
 #include "Paddle.hpp"
 #include "Ball.hpp"
 #include "AudioManager.hpp"
-#include "GameScreen.hpp"
 
 
 class GameEngine{
@@ -20,7 +19,6 @@ class GameEngine{
         Paddle player2_paddle;
         Ball ball;
         AudioManager audio;
-        GameScreen gameScreen;
         int player1Score;
         int player2Score;
         TTF_Font* font;
@@ -41,6 +39,7 @@ class GameEngine{
         void player2Scored();
         void initFont();
         void presentRenderer();
+        void drawText(const char* text, int w, int h, int x, int y);
         int gameState;
         
 };

@@ -95,20 +95,24 @@ void GameEngine::checkAllCollisions()
 // Draws all the objects to the screen that are involved during the gamplay state
 void GameEngine::RenderNewGameFrame()
 {
-	SDL_Renderer* renderer = window.getRenderer();
-    player1_paddle.draw(renderer); // draw paddle1
-    player2_paddle.draw(renderer); // draw paddle2 
-	GameScreen::drawHalfwayLine(renderer);
-    ball.draw(renderer); // draw ball
-	GameScreen::drawBackground(renderer);
-	GameScreen::drawScores(renderer, font, player1Score, player2Score);
+	SDL_Renderer* _renderer = window.getRenderer();
+    player1_paddle.draw(_renderer); // draw paddle1
+    player2_paddle.draw(_renderer); // draw paddle2 
+	Window::drawHalfwayLine(_renderer);
+    ball.draw(_renderer); // draw ball
+	Window::drawBackground(_renderer);
+	Window::drawScores(_renderer, font, player1Score, player2Score);
 
 }
 
 // Renders Everything on the start menu
 void GameEngine::RenderNewStartFrame()
 {
-	
+	SDL_Renderer* _renderer = window.getRenderer();
+
+	SDL_SetRenderDrawColor(_renderer, 10, 0, 10, 255); // Draw bg color
+	drawText("Hello", 100, 20, 50 ,50);
+
 }
 
 // Calls Window methods to present the render to the screen, and clear it for the next frame
@@ -146,6 +150,24 @@ void GameEngine::initFont()
     font = TTF_OpenFont("res/fonts/volleyball.ttf", 20);
     if ( font == NULL )
         std::cout << "Error Loading Font: " << TTF_GetError() << std::endl; 
+}
+
+// Draws text to the renderer in White and using the currently loaded font
+void GameEngine::drawText(const char* text, int w, int h, int x, int y)
+{	
+	SDL_Renderer* _renderer = window.getRenderer();
+	SDL_Color White = {255, 255, 255};
+    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, text, White); 
+    // Better to use Textures to utilise the gpu
+    SDL_Texture* Message = SDL_CreateTextureFromSurface(_renderer, surfaceMessage); 
+    SDL_Rect Message_rect; //create a rect
+    Message_rect.w = w; // controls the width of the rect
+    Message_rect.h = h; // controls the height of the rect
+    Message_rect.x = x;  //controls the rect's x coordinate 
+    Message_rect.y = y; // controls the rect's y coordinte
+    SDL_RenderCopy(_renderer, Message, NULL, &Message_rect);
+    SDL_FreeSurface(surfaceMessage);
+    SDL_DestroyTexture(Message);
 }
 
 // Handles inputs relevant to all game state types such as closing of the window
