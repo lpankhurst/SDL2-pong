@@ -27,12 +27,13 @@ int main( int argc, char* argv[] )
 			case 0: // Start-menu state
 
 				// get inputs
+				// gameEngine.handleStartInputs();
 				// update objects
 				// Render frame
 				gameEngine.RenderNewStartFrame();
 
 
-				gameEngine.gameState = 1;
+				// gameEngine.gameState = 1;
 				break;
 
 			case 1: // Gameplay state

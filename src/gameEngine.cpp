@@ -98,22 +98,33 @@ void GameEngine::RenderNewGameFrame()
 	SDL_Renderer* _renderer = window.getRenderer();
     player1_paddle.draw(_renderer); // draw paddle1
     player2_paddle.draw(_renderer); // draw paddle2 
-	Window::drawHalfwayLine(_renderer);
+	window.drawHalfwayLine();
     ball.draw(_renderer); // draw ball
-	Window::drawBackground(_renderer);
-	Window::drawScores(_renderer, font, player1Score, player2Score);
+	window.drawBackground();
+	window.drawScores(font, player1Score, player2Score);
 
 }
 
 // Renders Everything on the start menu
 void GameEngine::RenderNewStartFrame()
 {
-	SDL_Renderer* _renderer = window.getRenderer();
-
-	SDL_SetRenderDrawColor(_renderer, 10, 0, 10, 255); // Draw bg color
-	drawText("Hello", 100, 20, 50 ,50);
+	window.drawBackground();
+	drawText("1 Player", 130, 20, 240, 140);
+	drawText("2 Player", 130, 20, 240, 190);
+	drawText("Quit Game", 130, 20, 240, 240);
 
 }
+
+void GameEngine::handleStartInputs()
+{
+	// Get the keyboard state
+	const Uint8 *state = SDL_GetKeyboardState(NULL);
+
+	if ( state[SDL_SCANCODE_UP] ) {}
+		// arrow.x -= 10
+		
+}
+
 
 // Calls Window methods to present the render to the screen, and clear it for the next frame
 void GameEngine::presentRenderer()

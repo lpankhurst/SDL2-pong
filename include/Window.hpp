@@ -25,8 +25,8 @@ class Window{
         SDL_Window* getWindow();
         SDL_Renderer* getRenderer();
         TTF_Font* getFont();
-        static void drawBackground(SDL_Renderer* _renderer);
-        static void drawHalfwayLine(SDL_Renderer* _renderer);
-        static void drawScores(SDL_Renderer* _renderer, TTF_Font* font, int player1Score, int player2Score);
+        void drawBackground();
+        void drawHalfwayLine();
+        void drawScores(TTF_Font* font, int player1Score, int player2Score);
 
 };
