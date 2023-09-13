@@ -8,13 +8,9 @@
 #include "Ball.hpp"
 #include "GameEngine.hpp"
 
-// TODO add fullscreen option 
-const int WIN_WIDTH = 600;
-const int WIN_HEIGHT = 400;
-
 int main( int argc, char* argv[] )
 {
-	GameEngine gameEngine = GameEngine(WIN_WIDTH, WIN_HEIGHT);
+	GameEngine gameEngine = GameEngine();
 	gameEngine.initSDL();
 
 
@@ -27,13 +23,11 @@ int main( int argc, char* argv[] )
 			case 0: // Start-menu state
 
 				// get inputs
-				// gameEngine.handleStartInputs();
+				gameEngine.handleStartInputs();
 				// update objects
 				// Render frame
 				gameEngine.RenderNewStartFrame();
 
-
-				// gameEngine.gameState = 1;
 				break;
 
 			case 1: // Gameplay state

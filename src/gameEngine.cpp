@@ -7,15 +7,45 @@
 #include <iostream>
 
 
-GameEngine::GameEngine(const int WIN_WIDTH, const int WIN_HEIGHT)
+GameEngine::GameEngine()
+{	
+	WIN_WIDTH = 600;
+	WIN_HEIGHT = 400; 
+    window = Window("Pong", WIN_WIDTH, WIN_HEIGHT);
+	gameState = 0; // Starting in the start-menu gameState
+	audio = AudioManager();
+
+	// Setting up the start screen
+
+	const char* filePath = "res/images/arrow.png";
+	SDL_Surface* arrowSurface = IMG_Load(filePath);
+	if ( arrowSurface == NULL )
+		std::cout << "Error loading arrow.png" << IMG_GetError() << std::endl;
+
+	arrowTexture = SDL_CreateTextureFromSurface(window.getRenderer(), arrowSurface);
+
+	// Setting the arrow location and size
+	// TODO get this working, blackscreens every time try to add arrowBox as attribute in hpp
+	SDL_Rect arrowBox; 
+    arrowBox.x = 10;
+    arrowBox.y = 10;
+    arrowBox.w = arrowBox.h = 50; 
+
+
+	SDL_RenderCopy(window.getRenderer(), arrowTexture, NULL, &arrowBox);
+
+	// SDL_FreeSurface(arrowSurface);
+    // SDL_DestroyTexture(arrowTexture);
+
+}
+
+// Initialises the objects for the gameplay of the game
+void GameEngine::setupGame()
 {
-    window = Window("Pong", WIN_WIDTH, WIN_HEIGHT); 
 	player1_paddle = Paddle(0, 0, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
 	player2_paddle = Paddle(WIN_WIDTH - 10, 0, SDL_SCANCODE_W, SDL_SCANCODE_S);
 	ball = Ball( (WIN_WIDTH/2) - 10 , (WIN_HEIGHT/2) + 10 );
-	audio = AudioManager();
 	player1Score = player2Score = 0;
-	gameState = 0; // Starting in the start-menu gameState
 }
 
 void GameEngine::initSDL()
@@ -112,6 +142,8 @@ void GameEngine::RenderNewStartFrame()
 	drawText("1 Player", 130, 20, 240, 140);
 	drawText("2 Player", 130, 20, 240, 190);
 	drawText("Quit Game", 130, 20, 240, 240);
+	SDL_RenderCopy(window.getRenderer(), arrowTexture, NULL, NULL);
+
 
 }
 
@@ -122,7 +154,13 @@ void GameEngine::handleStartInputs()
 
 	if ( state[SDL_SCANCODE_UP] ) {}
 		// arrow.x -= 10
-		
+	
+
+	if ( state[SDL_SCANCODE_RETURN] )
+		{
+			setupGame();
+			gameState = 1;
+		}
 }
 
 

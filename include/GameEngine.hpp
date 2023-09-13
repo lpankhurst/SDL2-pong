@@ -14,6 +14,10 @@
 class GameEngine{
 
     private:
+        int WIN_WIDTH;
+        int WIN_HEIGHT;
+        // I dont like that these are all here, will maybe move them 
+        SDL_Texture* arrowTexture;
         Window window;
         Paddle player1_paddle;
         Paddle player2_paddle;
@@ -23,7 +27,7 @@ class GameEngine{
         int player2Score;
         TTF_Font* font;
     public:
-        GameEngine(const int WIN_WIDTH, const int WIN_HEIGHT);
+        GameEngine();
         void initSDL();
         void handleGameInputs();
         void handleStartInputs();
@@ -40,6 +44,7 @@ class GameEngine{
         void initFont();
         void presentRenderer();
         void drawText(const char* text, int w, int h, int x, int y);
+        void setupGame();
         int gameState;
         
 };
