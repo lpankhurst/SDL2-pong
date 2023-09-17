@@ -44,10 +44,9 @@ int main( int argc, char* argv[] )
 				break;
 
 		}
-		
-		gameEngine.handleGenericInputs();
 
-		// do delta time 
+		// delta time 
+		// --- TODO ----
 		// Delay
 		SDL_Delay(5);
 		// Present Renderer & clear for next
