@@ -6,6 +6,11 @@
 #include <SDL2/SDL_ttf.h>
 #include <iostream>
 
+SDL_Rect GameEngine::arrowContainer = { 10, 10, 50, 50 };
+SDL_Rect GameEngine::messageContainer = { 240, -1, 130, 20 };
+SDL_Color White = {255, 255, 255};
+
+
 
 GameEngine::GameEngine()
 {	
@@ -23,19 +28,6 @@ GameEngine::GameEngine()
 		std::cout << "Error loading arrow.png" << IMG_GetError() << std::endl;
 
 	arrowTexture = SDL_CreateTextureFromSurface(window.getRenderer(), arrowSurface);
-
-	// Setting the arrow location and size
-	// TODO get this working, blackscreens every time try to add arrowBox as attribute in hpp
-	SDL_Rect arrowBox; 
-    arrowBox.x = 10;
-    arrowBox.y = 10;
-    arrowBox.w = arrowBox.h = 50; 
-
-
-	SDL_RenderCopy(window.getRenderer(), arrowTexture, NULL, &arrowBox);
-
-	// SDL_FreeSurface(arrowSurface);
-    // SDL_DestroyTexture(arrowTexture);
 
 }
 
@@ -122,7 +114,7 @@ void GameEngine::checkAllCollisions()
 	// audio.freeSound();
 }
 
-// Draws all the objects to the screen that are involved during the gamplay state
+// Draws all the objects to the screen that are involved during the gameplay state
 void GameEngine::RenderNewGameFrame()
 {
 	SDL_Renderer* _renderer = window.getRenderer();
@@ -137,22 +129,27 @@ void GameEngine::RenderNewGameFrame()
 
 // Renders Everything on the start menu
 void GameEngine::RenderNewStartFrame()
-{
+{	
 	window.drawBackground();
-	drawText("1 Player", 130, 20, 240, 140);
-	drawText("2 Player", 130, 20, 240, 190);
-	drawText("Quit Game", 130, 20, 240, 240);
-	SDL_RenderCopy(window.getRenderer(), arrowTexture, NULL, NULL);
+	drawText("1 Player", 140);
+	drawText("2 Player", 190);
+	drawText("Quit Game", 240);
+	drawArrow();
+
 
 
 }
+
 
 void GameEngine::handleStartInputs()
 {
 	// Get the keyboard state
 	const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-	if ( state[SDL_SCANCODE_UP] ) {}
+	if ( state[SDL_SCANCODE_UP] )
+	{
+		arrowContainer.x += 10;
+	}
 		// arrow.x -= 10
 	
 
@@ -162,7 +159,6 @@ void GameEngine::handleStartInputs()
 			gameState = 1;
 		}
 }
-
 
 // Calls Window methods to present the render to the screen, and clear it for the next frame
 void GameEngine::presentRenderer()
@@ -202,21 +198,21 @@ void GameEngine::initFont()
 }
 
 // Draws text to the renderer in White and using the currently loaded font
-void GameEngine::drawText(const char* text, int w, int h, int x, int y)
+void GameEngine::drawText(const char* text, int y)
 {	
 	SDL_Renderer* _renderer = window.getRenderer();
-	SDL_Color White = {255, 255, 255};
     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, text, White); 
-    // Better to use Textures to utilise the gpu
     SDL_Texture* Message = SDL_CreateTextureFromSurface(_renderer, surfaceMessage); 
-    SDL_Rect Message_rect; //create a rect
-    Message_rect.w = w; // controls the width of the rect
-    Message_rect.h = h; // controls the height of the rect
-    Message_rect.x = x;  //controls the rect's x coordinate 
-    Message_rect.y = y; // controls the rect's y coordinte
-    SDL_RenderCopy(_renderer, Message, NULL, &Message_rect);
+
+    messageContainer.y = y; // controls the rect's y coordinate
+    SDL_RenderCopy(_renderer, Message, NULL, &messageContainer);
     SDL_FreeSurface(surfaceMessage);
     SDL_DestroyTexture(Message);
+}
+
+void GameEngine::drawArrow()
+{
+	SDL_RenderCopy(window.getRenderer(), arrowTexture, NULL, &arrowContainer);
 }
 
 // Handles inputs relevant to all game state types such as closing of the window

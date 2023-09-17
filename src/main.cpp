@@ -52,6 +52,9 @@ int main( int argc, char* argv[] )
 		SDL_Delay(5);
 		// Present Renderer & clear for next
 		gameEngine.presentRenderer();
+
+		if ( SDL_GetError() == NULL )
+			std::cout <<  "Error 5" <<SDL_GetError() << std::endl;
 	
 	}
 

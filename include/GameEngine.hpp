@@ -18,6 +18,8 @@ class GameEngine{
         int WIN_HEIGHT;
         // I dont like that these are all here, will maybe move them 
         SDL_Texture* arrowTexture;
+        static SDL_Rect arrowContainer;
+        static SDL_Rect messageContainer;
         Window window;
         Paddle player1_paddle;
         Paddle player2_paddle;
@@ -43,7 +45,8 @@ class GameEngine{
         void player2Scored();
         void initFont();
         void presentRenderer();
-        void drawText(const char* text, int w, int h, int x, int y);
+        void drawText(const char* text, int y);
+        void drawArrow();
         void setupGame();
         int gameState;
         
