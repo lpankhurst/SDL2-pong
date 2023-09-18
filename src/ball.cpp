@@ -87,7 +87,8 @@ void Ball::resetRound()
 
     // Reset the ball speed and set direction so losing player gets first hit 
     x_velocity = ( x_velocity / abs(x_velocity));
-    y_velocity = 1;
+    y_velocity = 1; // TODO make this a random value between -1.5 and 1.5
+
 
 }
 
@@ -125,8 +126,9 @@ void Ball::calcNewXSpeed(int paddle_pos)
 // Give the Ball a new y_velocity randomly, but in the direction of the paddles last movement
 // in order to give the feeling of the paddle being 'grippy'
 float Ball::calcNewYSpeed(int paddle_vel)
-{
-    double randNum;
+{   
+    // TODO check this is actually randomising
+    double randNum; 
     randNum = rand() % 70 + 50; // Generate random int between 50-120
     randNum /= 100; // Convert to single digit number 
 

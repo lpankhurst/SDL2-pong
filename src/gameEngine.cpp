@@ -178,10 +178,31 @@ void GameEngine::handleStartInputs()
 			// Start the game and play a sound
 			else if (event.key.keysym.sym == SDLK_RETURN)
 			{	
-				audioManager.loadSound("res/audio/sfx_menu_select1.wav");
-				audioManager.playSound();
-				setupGame();
-				gameState = 1;	
+				// If they pressed Single Player
+				if ( arrowContainer.y == 140)
+				{
+					audioManager.loadSound("res/audio/sfx_menu_select1.wav");
+					audioManager.playSound();
+					setupGame();
+					gameState = 1;	
+				} 
+				// If they pressed 2-player
+				else if ( arrowContainer.y == 190)
+				{
+					audioManager.loadSound("res/audio/sfx_menu_select1.wav");
+					audioManager.playSound();
+					setupGame();
+					gameState = 1;	
+					// TODO 2 player feature
+					
+				}
+				// If they pressed quit game
+				else if ( arrowContainer.y == 240 )
+				{
+					window.isOpen = false;
+				}
+
+
 			}
 
 			// Polling to see if closed the window here since best to poll events in one place

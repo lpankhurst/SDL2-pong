@@ -8,53 +8,46 @@
 #include "Ball.hpp"
 #include "GameEngine.hpp"
 
-int main( int argc, char* argv[] )
+int main(int argc, char *argv[])
 {
 	GameEngine gameEngine = GameEngine();
 	gameEngine.initSDL();
 
-
 	// Gameplay loop
-	while ( gameEngine.isRunning() )
+	while (gameEngine.isRunning())
 	{
 
-		switch ( gameEngine.gameState )
+		switch (gameEngine.gameState)
 		{
-			case 0: // Start-menu state
+		case 0: // Start-menu state
 
-				// get inputs
-				gameEngine.handleStartInputs();
-				// update objects
-				// Render frame
-				gameEngine.RenderNewStartFrame();
+			// get inputs
+			gameEngine.handleStartInputs();
+			// update objects
+			// Render frame
+			gameEngine.RenderNewStartFrame();
 
-				break;
+			break;
 
-			case 1: // Gameplay state
+		case 1: // Gameplay state
 
-				gameEngine.handleGameInputs();
-				gameEngine.checkAllCollisions();
-				gameEngine.RenderNewGameFrame();
+			gameEngine.handleGameInputs();
+			gameEngine.checkAllCollisions();
+			gameEngine.RenderNewGameFrame();
 
-				break;
+			break;
 
-			case 2: // Game over state
+		case 2: // Game over state
 
-				// TODO
-				break;
-
+			// TODO
+			break;
 		}
-
-		// delta time 
+		// delta time
 		// --- TODO ----
 		// Delay
 		SDL_Delay(5);
 		// Present Renderer & clear for next
 		gameEngine.presentRenderer();
-
-		if ( SDL_GetError() == NULL )
-			std::cout <<  "Error 5" <<SDL_GetError() << std::endl;
-	
 	}
 
 	gameEngine.closeAll();
