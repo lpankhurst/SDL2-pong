@@ -141,18 +141,27 @@ void GameEngine::handleStartInputs()
 
 	if ( SDL_PollEvent(&event) )
 	{	
+		// See if it is a key-press event
 		if ( event.type == SDL_KEYDOWN )
-		{
+		{	
+			// If they are going down
 			if (event.key.keysym.sym == SDLK_DOWN)
-			{
+			{	
+				// If we can move down, move down + play sound
 				if ( arrowContainer.y < 240 )
 				{
 					arrowContainer.y += 50;
 					audioManager.loadSound("res/audio/sfx_menu_move2.wav");
 					audioManager.playSound();
+				} 
+				// otherwise dont + play different sound
+				else {
+					audioManager.loadSound("res/audio/sfx_sounds_impact6.wav");
+					audioManager.playSound();
 				}
 			}
 
+			// Same thing for up
 			else if (event.key.keysym.sym == SDLK_UP)
 			{
 				if ( arrowContainer.y > 140 )
@@ -160,9 +169,13 @@ void GameEngine::handleStartInputs()
 					arrowContainer.y -= 50;	
 					audioManager.loadSound("res/audio/sfx_menu_move2.wav");
 					audioManager.playSound();
+				} else {
+					audioManager.loadSound("res/audio/sfx_sounds_impact6.wav");
+					audioManager.playSound();
 				}
 			}
 
+			// Start the game and play a sound
 			else if (event.key.keysym.sym == SDLK_RETURN)
 			{	
 				audioManager.loadSound("res/audio/sfx_menu_select1.wav");
