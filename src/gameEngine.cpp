@@ -148,6 +148,8 @@ void GameEngine::handleStartInputs()
 				if ( arrowContainer.y < 240 )
 				{
 					arrowContainer.y += 50;
+					audioManager.loadSound("res/audio/sfx_menu_move2.wav");
+					audioManager.playSound();
 				}
 			}
 
@@ -156,11 +158,15 @@ void GameEngine::handleStartInputs()
 				if ( arrowContainer.y > 140 )
 				{
 					arrowContainer.y -= 50;	
+					audioManager.loadSound("res/audio/sfx_menu_move2.wav");
+					audioManager.playSound();
 				}
 			}
 
 			else if (event.key.keysym.sym == SDLK_RETURN)
-			{
+			{	
+				audioManager.loadSound("res/audio/sfx_menu_select1.wav");
+				audioManager.playSound();
 				setupGame();
 				gameState = 1;	
 			}

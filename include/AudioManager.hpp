@@ -12,6 +12,7 @@ class AudioManager{
     public:
         AudioManager();
         // Imperfect solution, but only need to play one sound effect and music at a time
+        // could be a static class
         void loadSound(const char* filePath);
         void loadMusic(const char* filePath);
         void playSound();
