@@ -36,6 +36,8 @@ void GameEngine::setupGame()
 	player2_paddle = Paddle(WIN_WIDTH - 10, 0, SDL_SCANCODE_W, SDL_SCANCODE_S);
 	ball = Ball((WIN_WIDTH / 2) - 10, (WIN_HEIGHT / 2) + 10);
 	player1Score = player2Score = 0;
+	numPlayers = 0;
+
 }
 
 void GameEngine::initSDL()
@@ -64,7 +66,15 @@ void GameEngine::handleGameInputs()
 	const Uint8 *state = SDL_GetKeyboardState(NULL);
 	// See if any keys are pressed that would move a paddle
 	player1_paddle.pollEvents(state);
-	player2_paddle.pollEvents(state);
+	// player2_paddle.pollEvents(state);
+
+	if ( numPlayers == 2 )
+		player2_paddle.pollEvents(state);
+	else 
+	{	
+		// TODO -- change this to make it beatable
+		player2_paddle.setPos(floor(ball.getYPos()) - 50);
+	}
 
 	SDL_Event event;
 
@@ -184,7 +194,9 @@ void GameEngine::handleStartInputs()
 					audioManager.loadSound("res/audio/sfx_menu_select1.wav");
 					audioManager.playSound();
 					setupGame();
-					gameState = 1;	
+					gameState = 1;
+					numPlayers = 1;
+
 				} 
 				// If they pressed 2-player
 				else if ( arrowContainer.y == 190)
@@ -193,7 +205,7 @@ void GameEngine::handleStartInputs()
 					audioManager.playSound();
 					setupGame();
 					gameState = 1;	
-					// TODO 2 player feature
+					numPlayers = 2;
 					
 				}
 				// If they pressed quit game

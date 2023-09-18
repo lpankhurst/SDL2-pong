@@ -49,5 +49,6 @@ class GameEngine{
         void drawArrow();
         void setupGame();
         int gameState;
+        int numPlayers; // Has to be public or else everything breaks for some reason
         
 };

@@ -24,6 +24,7 @@ Paddle::Paddle(int x, int y, SDL_Scancode up, SDL_Scancode down)
 
 Paddle::Paddle(){}
 
+// Checks if appropriate keys are pressed and moves accordingly 
 void Paddle::pollEvents(const Uint8 *state)
 {
     bool moveUp = ( state[up_key] && !(paddle.y == 0) );
@@ -43,7 +44,6 @@ void Paddle::pollEvents(const Uint8 *state)
     paddle.y = y_pos;
 }
 
-
 void Paddle::draw(SDL_Renderer* renderer)
 {
     // Update the position of the paddle
@@ -62,4 +62,9 @@ int Paddle::getPos()
 int Paddle::getSpeed()
 {
     return speed;
+}
+
+void Paddle::setPos(int newPos)
+{
+    paddle.y = y_pos = newPos;
 }

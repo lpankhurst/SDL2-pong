@@ -21,6 +21,6 @@ class Ball{
         float calcNewYSpeed(int paddle_vel);
         int checkIfPlayerScored();
         void resetRound();
-
+        float getYPos();
 
 };

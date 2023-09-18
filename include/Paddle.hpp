@@ -19,5 +19,6 @@ class Paddle{
         void draw(SDL_Renderer* renderer);
         int getPos();
         int getSpeed();
+        void setPos(int newPos);
 
 };

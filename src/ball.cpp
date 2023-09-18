@@ -138,3 +138,8 @@ float Ball::calcNewYSpeed(int paddle_vel)
     return randNum;
 
 }
+
+float Ball::getYPos()
+{
+    return y_pos;
+}
