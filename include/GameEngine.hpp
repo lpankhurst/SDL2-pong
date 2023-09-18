@@ -24,7 +24,7 @@ class GameEngine{
         Paddle player1_paddle;
         Paddle player2_paddle;
         Ball ball;
-        AudioManager audio;
+        AudioManager audioManager;
         int player1Score;
         int player2Score;
         TTF_Font* font;

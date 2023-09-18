@@ -7,7 +7,7 @@
 #include <iostream>
 
 //  								{ x, y, width, height}
-SDL_Rect GameEngine::arrowContainer = {210, 160, 20, 20};
+SDL_Rect GameEngine::arrowContainer = {210, 140, 20, 20};
 SDL_Rect GameEngine::messageContainer = {240, -1, 130, 20};
 SDL_Color White = {255, 255, 255};
 
@@ -17,7 +17,7 @@ GameEngine::GameEngine()
 	WIN_HEIGHT = 400;
 	window = Window("Pong", WIN_WIDTH, WIN_HEIGHT);
 	gameState = 0; // Starting in the start-menu gameState
-	audio = AudioManager();
+	audioManager = AudioManager();
 
 	// Setting up the start screen
 
@@ -95,13 +95,13 @@ void GameEngine::checkAllCollisions()
 
 	if (ball.checkPaddleCollision(player1_paddle.getPos(), player2_paddle.getPos(), player1_paddle.getSpeed(), player2_paddle.getSpeed()))
 	{
-		audio.loadSound("res/audio/sfx_sounds_impact14.wav");
-		audio.playSound();
+		audioManager.loadSound("res/audio/sfx_sounds_impact14.wav");
+		audioManager.playSound();
 	}
 	else if (ball.checkFloorOrCeilingCollision())
 	{
-		audio.loadSound("res/audio/sfx_sounds_Blip2.wav");
-		audio.playSound();
+		audioManager.loadSound("res/audio/sfx_sounds_Blip2.wav");
+		audioManager.playSound();
 	}
 
 	int didPlayerScore = ball.checkIfPlayerScored();
@@ -137,8 +137,6 @@ void GameEngine::RenderNewStartFrame()
 
 void GameEngine::handleStartInputs()
 {
-	// Get the keyboard state
-	const Uint8 *state = SDL_GetKeyboardState(NULL);
 	SDL_Event event;
 
 	if ( SDL_PollEvent(&event) )
@@ -146,21 +144,32 @@ void GameEngine::handleStartInputs()
 		if ( event.type == SDL_KEYDOWN )
 		{
 			if (event.key.keysym.sym == SDLK_DOWN)
-				arrowContainer.y += 10;
+			{
+				if ( arrowContainer.y < 240 )
+				{
+					arrowContainer.y += 50;
+				}
+			}
 
 			else if (event.key.keysym.sym == SDLK_UP)
-				arrowContainer.y -= 10;
+			{
+				if ( arrowContainer.y > 140 )
+				{
+					arrowContainer.y -= 50;	
+				}
+			}
+
+			else if (event.key.keysym.sym == SDLK_RETURN)
+			{
+				setupGame();
+				gameState = 1;	
+			}
 
 			// Polling to see if closed the window here since best to poll events in one place
 			// Otherwise that event might not be polled by the intended place
 			window.pollEvents(event);
+			
 		}
-	}
-
-	if (state[SDL_SCANCODE_RETURN])
-	{
-		setupGame();
-		gameState = 1;
 	}
 }
 

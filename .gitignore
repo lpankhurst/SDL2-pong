@@ -3,3 +3,4 @@ Makefile
 .vscode
 main
 .DS_Store
+run.sh
