@@ -73,7 +73,18 @@ void GameEngine::handleGameInputs()
 	else 
 	{	
 		// TODO -- change this to make it beatable
-		player2_paddle.setPos(floor(ball.getYPos()) - 50);
+		// player2_paddle.setPos(floor(ball.getYPos()) - 50);
+
+		float cpu_speed = 0.6; // 0.6 is hard but beatable, test 0.5 and 0.4 
+
+		if ( player2_paddle.getPos() + 50 > ball.getYPos() )
+		{	
+			player2_paddle.moveUp(cpu_speed);
+		} 
+		else if (  player2_paddle.getPos() + 50 < ball.getYPos() )
+		{
+			player2_paddle.moveDown(cpu_speed);
+		}
 	}
 
 	SDL_Event event;

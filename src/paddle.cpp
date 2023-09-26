@@ -4,7 +4,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 
-Paddle::Paddle(int x, int y, SDL_Scancode up, SDL_Scancode down)
+Paddle::Paddle(int x, float y, SDL_Scancode up, SDL_Scancode down)
 {
     // Paddle's dimensions
     paddle.w = 10;
@@ -67,4 +67,24 @@ int Paddle::getSpeed()
 void Paddle::setPos(int newPos)
 {
     paddle.y = y_pos = newPos;
+}
+
+// For the CPU movement up, returns true if moved, false if didn't
+bool Paddle::moveUp(float cpu_speed)
+{   
+    if ( y_pos - cpu_speed < 0)
+        return false;
+
+    paddle.y = y_pos -= cpu_speed;
+    return true;
+}
+
+// For the CPU movement down, returns true if moved, false if didn't
+bool Paddle::moveDown(float cpu_speed)
+{   
+    if ( y_pos + cpu_speed + 100 > 400) // If exceeds window height 
+        return false;
+
+    paddle.y = y_pos += cpu_speed;
+    return true;
 }

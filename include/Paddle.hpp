@@ -6,7 +6,7 @@ class Paddle{
 
     private:
         int speed;
-        int y_pos;
+        float y_pos;
         SDL_Rect paddle;
         SDL_Scancode up_key;
         SDL_Scancode down_key;
@@ -14,11 +14,13 @@ class Paddle{
 
     public:
         Paddle();
-        Paddle(int x_pos, int y_pos, SDL_Scancode up_key, SDL_Scancode down_key);
+        Paddle(int x_pos, float y_pos, SDL_Scancode up_key, SDL_Scancode down_key);
         void pollEvents(const Uint8 *state);
         void draw(SDL_Renderer* renderer);
         int getPos();
         int getSpeed();
         void setPos(int newPos);
+        bool moveUp(float cpu_speed);
+        bool moveDown(float cpu_speed);
 
 };
