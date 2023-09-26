@@ -8,7 +8,6 @@
 
 //  								{ x, y, width, height}
 SDL_Rect GameEngine::arrowContainer = {210, 140, 20, 20};
-SDL_Rect GameEngine::messageContainer = {240, -1, 130, 20};
 SDL_Color White = {255, 255, 255};
 
 GameEngine::GameEngine()
@@ -151,9 +150,13 @@ void GameEngine::RenderNewGameFrame()
 void GameEngine::RenderNewStartFrame()
 {
 	window.drawBackground();
-	drawText("1 Player", 140);
-	drawText("2 Player", 190);
-	drawText("Quit Game", 240);
+	SDL_Rect optionContainer = {240, 140, 130, 20};
+	drawText("1 Player", optionContainer);
+	optionContainer.y += 50;
+	drawText("2 Player", optionContainer);
+	optionContainer.y += 50;
+	drawText("Quit Game", optionContainer);
+	optionContainer.y = 140;
 	drawArrow();
 }
 
@@ -272,13 +275,12 @@ void GameEngine::initFont()
 }
 
 // Draws text to the renderer in White and using the currently loaded font
-void GameEngine::drawText(const char *text, int y)
+void GameEngine::drawText(const char *text, SDL_Rect messageContainer)
 {
 	SDL_Renderer *_renderer = window.getRenderer();
 	SDL_Surface *surfaceMessage = TTF_RenderText_Solid(font, text, White);
 	SDL_Texture *Message = SDL_CreateTextureFromSurface(_renderer, surfaceMessage);
 
-	messageContainer.y = y; // controls the rect's y coordinate
 	SDL_RenderCopy(_renderer, Message, NULL, &messageContainer);
 	SDL_FreeSurface(surfaceMessage);
 	SDL_DestroyTexture(Message);
@@ -295,7 +297,10 @@ void GameEngine::RenderNewEndFrame()
 	window.drawBackground(); // Draw a grey background
 	char textToDisplay[100];
 	snprintf(textToDisplay, 100, "Player %d won", winner);
-	drawText(textToDisplay, 200);
+	SDL_Rect gameOverContainer = {200, 150, 200, 40};
+	SDL_Rect winnerContainer = {220, 220, 160, 20};
+	drawText("Game Over", gameOverContainer);
+	drawText(textToDisplay, winnerContainer);
 }
 
 // Handle when the user closes the window/game
