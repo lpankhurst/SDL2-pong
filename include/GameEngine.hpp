@@ -28,13 +28,13 @@ class GameEngine{
         int player1Score;
         int player2Score;
         TTF_Font* font;
+        int winner;
     public:
         GameEngine();
         void initSDL();
         void handleGameInputs();
         void handleStartInputs();
         void handleEndInputs();
-        void handleGenericInputs();
         void RenderNewGameFrame();
         void RenderNewStartFrame();
         void RenderNewEndFrame();

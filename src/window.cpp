@@ -26,6 +26,7 @@ Window::Window(const char* title, int width, int height)
 
 Window::Window(){}
 
+// Polls too see if the user closed the window
 void Window::pollEvents(SDL_Event &event)
 {
     bool closedWindow = ( event.type == SDL_QUIT );

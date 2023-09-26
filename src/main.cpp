@@ -39,7 +39,8 @@ int main(int argc, char *argv[])
 
 		case 2: // Game over state
 
-			// TODO
+			gameEngine.handleEndInputs();
+			gameEngine.RenderNewEndFrame();
 			break;
 		}
 		// delta time

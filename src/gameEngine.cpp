@@ -12,7 +12,8 @@ SDL_Rect GameEngine::messageContainer = {240, -1, 130, 20};
 SDL_Color White = {255, 255, 255};
 
 GameEngine::GameEngine()
-{
+{	
+	winner = 0;
 	WIN_WIDTH = 600;
 	WIN_HEIGHT = 400;
 	window = Window("Pong", WIN_WIDTH, WIN_HEIGHT);
@@ -246,20 +247,20 @@ void GameEngine::presentRenderer()
 void GameEngine::player1Scored()
 {
 	player1Score++;
-	if (player1Score > 7)
-	{
-		std::cout << "Player 1 Won" << std::endl;
-	}
-	std::cout << "Player 1 Has scored" << std::endl;
-	ball.resetRound();
+	if (player1Score > 7){
+		gameState = 2;
+		winner = 1;
+	} else { ball.resetRound(); }
 }
 
 void GameEngine::player2Scored()
 {
-
 	player2Score++;
-	std::cout << "Player 2 Has scored" << std::endl;
-	ball.resetRound();
+	if (player2Score > 7){
+		gameState = 2;
+		winner = 2;
+	}
+	else{ ball.resetRound(); }
 }
 
 void GameEngine::initFont()
@@ -283,7 +284,27 @@ void GameEngine::drawText(const char *text, int y)
 	SDL_DestroyTexture(Message);
 }
 
+// Draws the arrow that appears in the start menu
 void GameEngine::drawArrow()
 {
 	SDL_RenderCopy(window.getRenderer(), arrowTexture, NULL, &arrowContainer);
+}
+
+void GameEngine::RenderNewEndFrame()
+{
+	window.drawBackground(); // Draw a grey background
+	char textToDisplay[100];
+	snprintf(textToDisplay, 100, "Player %d won", winner);
+	drawText(textToDisplay, 200);
+}
+
+// Handle when the user closes the window/game
+void GameEngine::handleEndInputs()
+{	
+	SDL_Event event;
+
+	if ( SDL_PollEvent(&event) )
+	{
+		window.pollEvents(event);
+	}
 }
