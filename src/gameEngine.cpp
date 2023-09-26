@@ -295,12 +295,24 @@ void GameEngine::drawArrow()
 void GameEngine::RenderNewEndFrame()
 {
 	window.drawBackground(); // Draw a grey background
-	char textToDisplay[100];
-	snprintf(textToDisplay, 100, "Player %d won", winner);
 	SDL_Rect gameOverContainer = {200, 150, 200, 40};
-	SDL_Rect winnerContainer = {220, 220, 160, 20};
 	drawText("Game Over", gameOverContainer);
-	drawText(textToDisplay, winnerContainer);
+	char textToDisplay[30];
+	
+	// Check how many players played 
+	if ( numPlayers != 1){
+		snprintf(textToDisplay, sizeof(textToDisplay), "Player %d won", winner);
+		SDL_Rect winnerContainer = {220, 220, 160, 20};
+		drawText(textToDisplay, winnerContainer);		
+	} else {
+		if ( winner == 1 )
+			strncpy(textToDisplay, "You won", sizeof(textToDisplay));
+		else
+			strncpy(textToDisplay, "You lost", sizeof(textToDisplay));
+
+		SDL_Rect winnerContainer = {240, 240, 120, 20};
+		drawText(textToDisplay, winnerContainer);		
+	}
 }
 
 // Handle when the user closes the window/game
