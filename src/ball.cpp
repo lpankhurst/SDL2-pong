@@ -67,6 +67,7 @@ bool Ball::checkPaddleCollision(int paddle1_y, int paddle2_y, int paddle1_vel, i
     return false;
 }
 
+// Returns the player number that scored, or 0 if no-one scored
 int Ball::checkIfPlayerScored()
 {
     bool ballInPlayer1Area = x_pos < 0;
